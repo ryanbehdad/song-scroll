@@ -1,218 +1,328 @@
 const viewer = document.getElementById('viewer')
 const songListEl = document.getElementById('songList')
+
+const openSongsBtn = document.getElementById('openSongs')
+const closeSongsBtn = document.getElementById('closeSongs')
+const drawerEl = document.getElementById('songDrawer')
+const scrimEl = document.getElementById('scrim')
+
+const songTitleEl = document.getElementById('songTitle')
+const songMetaEl = document.getElementById('songMeta')
+
 const speedEl = document.getElementById('speed')
 const speedVal = document.getElementById('speedVal')
 const fontEl = document.getElementById('font')
 const fontVal = document.getElementById('fontVal')
-const playBtn = document.getElementById('play')
-const pauseBtn = document.getElementById('pause')
+const playPauseBtn = document.getElementById('playPause')
 const prevBtn = document.getElementById('prev')
 const nextBtn = document.getElementById('next')
 const topBtn = document.getElementById('top')
 const autoToggle = document.getElementById('autoscrollToggle')
-const toggleSidebarBtn = document.getElementById('toggleSidebar')
-const speedMinusBtn = document.getElementById('speedMinus')
-const speedPlusBtn = document.getElementById('speedPlus')
-const speedNum = document.getElementById('speedNum')
 
-const SIDEBAR_KEY = 'sidebarHidden'
+const STORAGE = {
+  scrollSpeed: 'scrollSpeed',
+  fontSize: 'fontSize',
+}
+
+const DESKTOP_MQ = window.matchMedia('(min-width: 980px)')
 
 let songs = []
 let idx = 0
-let running = false
-let last = null
-let scrollY = 0
 
-let speed = Number(localStorage.getItem('scrollSpeed') || 15) // px per second
-let fontSize = Number(localStorage.getItem('fontSize') || 20)
+let isPlaying = false
+let scrollStartTs = 0
+let scrollStartTop = 0
 
-// clamp speed to a sensible range for this app
-const SPEED_MIN = 1
-const SPEED_MAX = 40
-function clampSpeed(v){
-  v = Number(v)
-  if(!Number.isFinite(v)) v = 15
-  return Math.max(SPEED_MIN, Math.min(SPEED_MAX, v))
-}
-speed = clampSpeed(speed)
+let speed = safeNumber(localStorage.getItem(STORAGE.scrollSpeed), 60)
+let fontSize = safeNumber(localStorage.getItem(STORAGE.fontSize), 20)
 
-speedEl.value = speed; speedVal.textContent = speed; if (speedNum) speedNum.value = speed
-fontEl.value = fontSize; fontVal.textContent = fontSize
+speed = clamp(speed, 5, 400)
+fontSize = clamp(fontSize, 14, 44)
 
-// load bundled songs.txt
-fetch('songs.txt').then(r => r.text()).then(txt => {
-  songs = parseSongsTxt(txt)
-  renderSongList()
-  if (songs.length) loadSong(0)
-}).catch(err => {
-  console.error('Failed to load songs.txt', err)
-  songListEl.innerHTML = '<div class="song-item">(failed to load songs)</div>'
-})
+speedEl.value = String(speed)
+speedVal.textContent = String(speed)
+fontEl.value = String(fontSize)
+fontVal.textContent = String(fontSize)
+viewer.style.fontSize = fontSize + 'px'
 
-function parseSongsTxt(txt){
-  const parts = txt.split(/\r?\n-{10,}\r?\n/).map(p => p.trim()).filter(Boolean)
-  return parts.map(p => {
-    const lines = p.split(/\r?\n/).map(l => l.replace(/\uFEFF/g,'')).map(l => l.trimEnd())
-    let idxLine = 0
-    while (idxLine < lines.length && lines[idxLine].trim() === '') idxLine++
+syncDrawerToViewport()
+DESKTOP_MQ.addEventListener('change', () => syncDrawerToViewport())
 
-    const title = lines[idxLine] || 'Untitled'
+// Load bundled songs.txt
+fetch('songs.txt', { cache: 'no-cache' })
+  .then((r) => {
+    if (!r.ok) throw new Error('HTTP ' + r.status)
+    return r.text()
+  })
+  .then((txt) => {
+    songs = parseSongsTxt(txt)
+    renderSongList()
+    if (songs.length) loadSong(0)
+  })
+  .catch((err) => {
+    console.error('Failed to load songs.txt', err)
+    songListEl.innerHTML = ''
+    const el = document.createElement('div')
+    el.className = 'song-item'
+    el.textContent = '(failed to load songs)'
+    songListEl.appendChild(el)
+  })
+
+function parseSongsTxt(txt) {
+  const cleaned = String(txt || '').replace(/\uFEFF/g, '')
+  const parts = cleaned
+    .split(/\r?\n-{10,}\r?\n/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+
+  return parts.map((p) => {
+    const lines = p.split(/\r?\n/).map((l) => l.trimEnd())
+    let lineIdx = 0
+    while (lineIdx < lines.length && lines[lineIdx].trim() === '') lineIdx++
+    const title = (lines[lineIdx] || 'Untitled').trim()
     let artist = ''
-    let contentStart = idxLine + 1
-
-    // Heuristic: treat 2nd line as artist if it isn't "chordy"
-    if (
-      lines[contentStart] &&
-      !/\[|\||\|:|\|\s{2,}/.test(lines[contentStart]) &&
-      lines[contentStart].length < 60 &&
-      lines[contentStart].split(' ').length < 6
-    ){
-      artist = lines[contentStart]
+    let contentStart = lineIdx + 1
+    if (looksLikeArtistLine(lines[contentStart])) {
+      artist = (lines[contentStart] || '').trim()
       contentStart++
     }
-
     const content = lines.slice(contentStart).join('\n').trim()
-    return { title: title.trim(), artist: artist.trim(), content }
+    return { title, artist, content }
   })
 }
 
-function renderSongList(){
+function looksLikeArtistLine(line) {
+  if (!line) return false
+  const s = line.trim()
+  if (!s) return false
+  if (s.length > 60) return false
+  if (s.split(/\s+/).length > 6) return false
+  if (/\[|\]|\|/.test(s)) return false
+  return true
+}
+
+function renderSongList() {
   songListEl.innerHTML = ''
   songs.forEach((s, i) => {
     const el = document.createElement('div')
     el.className = 'song-item'
-    el.textContent = s.title
-    el.addEventListener('click', () => loadSong(i))
+    if (i === idx) el.classList.add('active')
+    el.textContent = s.title + (s.artist ? ' — ' + s.artist : '')
+    el.addEventListener('click', () => {
+      loadSong(i)
+      if (!DESKTOP_MQ.matches) closeDrawer()
+    })
     songListEl.appendChild(el)
   })
-  highlightActive()
 }
 
-function highlightActive(){
-  Array.from(songListEl.children).forEach((el, i) => {
-    el.classList.toggle('active', i === idx)
-  })
-}
+function loadSong(i) {
+  idx = clamp(i, 0, Math.max(0, songs.length - 1))
+  const s = songs[idx]
+  if (!s) return
 
-function parseToHtml(txt){
-  const lines = txt.split('\n')
-  return lines.map(line => {
-    const safe = escapeHtml(line)
-    const out = safe.replace(/\[([^\]]+)\]/g, '<span class="chord">[$1]</span>')
-    return `<div class="line">${out || '&nbsp;'}</div>`
-  }).join('')
-}
-
-function escapeHtml(s){
-  // Your original file had some extra replacements; keep it simple + safe here
-  return s.replaceAll('&','&amp;')
-    .replaceAll('<','&lt;').replaceAll('>','&gt;')
-    .replaceAll('"','&quot;')
-}
-
-function loadSong(i){
-  idx = i
-  const s = songs[i]
+  updateHeader(s)
 
   viewer.innerHTML = ''
-  const title = document.createElement('div')
-  title.className = 'line'
-  title.style.fontWeight = '700'
-  title.style.fontSize = (fontSize + 6) + 'px'
-  title.textContent = s.title + (s.artist ? ' — ' + s.artist : '')
-  viewer.appendChild(title)
-
-  const block = document.createElement('div')
-  block.innerHTML = parseToHtml(s.content)
-  viewer.appendChild(block)
-
+  viewer.appendChild(renderSongContent(s))
   viewer.scrollTop = 0
-  scrollY = 0
-  highlightActive()
+  resetScrollBaseline()
+
+  updateActiveSongItem()
 }
 
-// sidebar toggle logic
-function setSidebarHidden(hidden){
-  if (hidden) document.documentElement.classList.add('sidebar-hidden')
-  else document.documentElement.classList.remove('sidebar-hidden')
-  localStorage.setItem(SIDEBAR_KEY, hidden ? '1' : '0')
+function updateHeader(song) {
+  songTitleEl.textContent = song.title || 'Untitled'
+  songMetaEl.textContent = song.artist || ''
 }
-if (toggleSidebarBtn){
-  toggleSidebarBtn.addEventListener('click', () => {
-    const hidden = document.documentElement.classList.contains('sidebar-hidden')
-    setSidebarHidden(!hidden)
-  })
+
+function updateActiveSongItem() {
+  const items = songListEl.querySelectorAll('.song-item')
+  items.forEach((el, i) => el.classList.toggle('active', i === idx))
 }
-try { if (localStorage.getItem(SIDEBAR_KEY) === '1') setSidebarHidden(true) } catch(e){}
 
-// auto-scroll loop
-function step(ts){
-  if (!running || !autoToggle.checked) { last = ts; requestAnimationFrame(step); return }
-  if (!last) last = ts
+function renderSongContent(song) {
+  const root = document.createElement('div')
 
-  const dt = (ts - last) / 1000
-  last = ts
+  const titleLine = document.createElement('div')
+  titleLine.className = 'line'
+  titleLine.style.fontWeight = '700'
+  titleLine.style.fontSize = (fontSize + 6) + 'px'
+  titleLine.textContent = song.title + (song.artist ? ' — ' + song.artist : '')
+  root.appendChild(titleLine)
 
-  // ✅ FIX: DO NOT floor. Keep fractional accumulator so low speeds move.
-  scrollY += speed * dt
-  viewer.scrollTop = scrollY
+  const content = String(song.content || '')
+  const lines = content.split(/\n/)
+  for (const lineText of lines) {
+    const lineEl = document.createElement('div')
+    lineEl.className = 'line'
+    appendChordifiedLine(lineEl, lineText)
+    root.appendChild(lineEl)
+  }
 
-  requestAnimationFrame(step)
+  return root
 }
-requestAnimationFrame(step)
 
-// controls
-playBtn.addEventListener('click', ()=>{ running = true; last = null })
-pauseBtn.addEventListener('click', ()=>{ running = false })
-prevBtn.addEventListener('click', ()=>{ if (idx > 0) loadSong(idx - 1) })
-nextBtn.addEventListener('click', ()=>{ if (idx < songs.length - 1) loadSong(idx + 1) })
-topBtn.addEventListener('click', ()=>{ viewer.scrollTop = 0; scrollY = 0 })
+function appendChordifiedLine(container, lineText) {
+  const text = String(lineText || '')
+  let lastIndex = 0
+  const chordRegex = /\[([^\]]+)\]/g
+  let match
+  while ((match = chordRegex.exec(text))) {
+    const before = text.slice(lastIndex, match.index)
+    if (before) container.appendChild(document.createTextNode(before))
 
-// If you manually scroll (touch), keep the accumulator in sync
-viewer.addEventListener('scroll', ()=>{ if (!running) scrollY = viewer.scrollTop })
+    const chord = String(match[1] || '').trim()
+    if (chord) {
+      const chordEl = document.createElement('span')
+      chordEl.className = 'chord'
+      chordEl.textContent = chord
+      container.appendChild(chordEl)
+    }
 
-// speed controls (range + numeric + +/-)
-speedEl.addEventListener('input', ()=>{
-  speed = clampSpeed(speedEl.value)
-  speedEl.value = speed
-  speedVal.textContent = speed
-  if (speedNum) speedNum.value = speed
-  localStorage.setItem('scrollSpeed', speed)
+    lastIndex = match.index + match[0].length
+  }
+  const rest = text.slice(lastIndex)
+  if (rest) container.appendChild(document.createTextNode(rest))
+}
+
+function setPlaying(playing) {
+  isPlaying = Boolean(playing)
+  playPauseBtn.textContent = isPlaying ? 'Pause' : 'Play'
+  if (isPlaying) resetScrollBaseline()
+}
+
+function resetScrollBaseline() {
+  scrollStartTs = performance.now()
+  scrollStartTop = viewer.scrollTop
+}
+
+function maxScrollTop() {
+  return Math.max(0, viewer.scrollHeight - viewer.clientHeight)
+}
+
+function tick(ts) {
+  requestAnimationFrame(tick)
+  if (!autoToggle.checked || !isPlaying) return
+
+  const maxTop = maxScrollTop()
+  if (maxTop <= 0) return
+
+  const elapsed = (ts - scrollStartTs) / 1000
+  const nextTop = scrollStartTop + speed * elapsed
+  viewer.scrollTop = Math.min(maxTop, Math.floor(nextTop))
+
+  if (viewer.scrollTop >= maxTop) setPlaying(false)
+}
+requestAnimationFrame(tick)
+
+// If the user scrolls while playing, keep the baseline in sync
+let userScrollDebounce = 0
+viewer.addEventListener(
+  'scroll',
+  () => {
+    if (!isPlaying) return
+    clearTimeout(userScrollDebounce)
+    userScrollDebounce = setTimeout(() => {
+      resetScrollBaseline()
+    }, 120)
+  },
+  { passive: true }
+)
+
+playPauseBtn.addEventListener('click', () => setPlaying(!isPlaying))
+prevBtn.addEventListener('click', () => {
+  if (idx > 0) loadSong(idx - 1)
 })
-if (speedMinusBtn) speedMinusBtn.addEventListener('click', ()=>{
-  speed = clampSpeed(speed - 1)
-  speedEl.value = speed
-  if (speedNum) speedNum.value = speed
-  speedVal.textContent = speed
-  localStorage.setItem('scrollSpeed', speed)
+nextBtn.addEventListener('click', () => {
+  if (idx < songs.length - 1) loadSong(idx + 1)
 })
-if (speedPlusBtn) speedPlusBtn.addEventListener('click', ()=>{
-  speed = clampSpeed(speed + 1)
-  speedEl.value = speed
-  if (speedNum) speedNum.value = speed
-  speedVal.textContent = speed
-  localStorage.setItem('scrollSpeed', speed)
-})
-if (speedNum) speedNum.addEventListener('change', ()=>{
-  speed = clampSpeed(speedNum.value)
-  speedEl.value = speed
-  speedVal.textContent = speed
-  localStorage.setItem('scrollSpeed', speed)
+topBtn.addEventListener('click', () => {
+  viewer.scrollTop = 0
+  resetScrollBaseline()
 })
 
-// font
-fontEl.addEventListener('input', ()=>{
-  fontSize = Number(fontEl.value)
-  fontVal.textContent = fontSize
+speedEl.addEventListener('input', () => {
+  speed = clamp(Number(speedEl.value), 5, 400)
+  speedVal.textContent = String(speed)
+  localStorage.setItem(STORAGE.scrollSpeed, String(speed))
+  resetScrollBaseline()
+})
+
+fontEl.addEventListener('input', () => {
+  fontSize = clamp(Number(fontEl.value), 14, 44)
+  fontVal.textContent = String(fontSize)
   viewer.style.fontSize = fontSize + 'px'
-  localStorage.setItem('fontSize', fontSize)
+  localStorage.setItem(STORAGE.fontSize, String(fontSize))
+  const current = songs[idx]
+  if (current) updateHeader(current)
+  // re-render to apply title size changes
+  if (current) {
+    const top = viewer.scrollTop
+    viewer.innerHTML = ''
+    viewer.appendChild(renderSongContent(current))
+    viewer.scrollTop = Math.min(top, maxScrollTop())
+    resetScrollBaseline()
+  }
 })
 
-// navigation keys
-document.addEventListener('keydown', (e)=>{
-  if (e.key === ' ') { e.preventDefault(); running = !running }
-  if (e.key === 'ArrowRight') { if (idx < songs.length - 1) loadSong(idx + 1) }
-  if (e.key === 'ArrowLeft') { if (idx > 0) loadSong(idx - 1) }
-  if (e.key === 'ArrowUp') viewer.scrollTop -= 50
-  if (e.key === 'ArrowDown') viewer.scrollTop += 50
+// Drawer
+openSongsBtn.addEventListener('click', () => openDrawer())
+closeSongsBtn.addEventListener('click', () => closeDrawer())
+scrimEl.addEventListener('click', () => closeDrawer())
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDrawer()
 })
+
+function openDrawer() {
+  if (DESKTOP_MQ.matches) return
+  drawerEl.hidden = false
+  scrimEl.hidden = false
+  // focus the drawer for keyboard users
+  drawerEl.setAttribute('tabindex', '-1')
+  drawerEl.focus({ preventScroll: true })
+}
+
+function closeDrawer() {
+  if (DESKTOP_MQ.matches) return
+  drawerEl.hidden = true
+  scrimEl.hidden = true
+  openSongsBtn.focus({ preventScroll: true })
+}
+
+function syncDrawerToViewport() {
+  if (DESKTOP_MQ.matches) {
+    drawerEl.hidden = false
+    scrimEl.hidden = true
+  } else {
+    drawerEl.hidden = true
+    scrimEl.hidden = true
+  }
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return
+
+  if (e.key === ' ') {
+    e.preventDefault()
+    setPlaying(!isPlaying)
+  }
+  if (e.key === 'ArrowRight') {
+    if (idx < songs.length - 1) loadSong(idx + 1)
+  }
+  if (e.key === 'ArrowLeft') {
+    if (idx > 0) loadSong(idx - 1)
+  }
+  if (e.key === 'ArrowUp') viewer.scrollTop -= 60
+  if (e.key === 'ArrowDown') viewer.scrollTop += 60
+})
+
+function clamp(n, min, max) {
+  return Math.min(max, Math.max(min, n))
+}
+
+function safeNumber(value, fallback) {
+  const n = Number(value)
+  return Number.isFinite(n) ? n : fallback
+}

@@ -7,40 +7,57 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <aside class="sidebar">
-    <h1>Song Scroll</h1>
-    <div id="songList" class="song-list"></div>
-    <div class="controls-compact">
-      <label>Speed: <span id="speedVal">15</span> px/s</label>
-      <div class="speed-controls">
-        <button id="speedMinus">-</button>
-        <input id="speed" type="range" min="1" max="40" value="15">
-        <button id="speedPlus">+</button>
+  <div class="app">
+    <header class="header">
+      <button id="openSongs" class="button" type="button" aria-haspopup="dialog" aria-controls="songDrawer">Songs</button>
+      <div class="header-title">
+        <div id="songTitle" class="song-title">Song Scroll</div>
+        <div id="songMeta" class="song-meta"></div>
       </div>
-      <div style="margin-top:6px">
-        <label>Set speed (px/s):
-          <input id="speedNum" type="number" min="1" max="40" value="15" step="1" style="width:80px">
+    </header>
+
+    <main class="content">
+      <div id="viewer" class="viewer" tabindex="0" aria-label="Song viewer"></div>
+    </main>
+
+    <footer class="controls" aria-label="Controls">
+      <div class="controls-row">
+        <button id="prev" class="button" type="button">Prev</button>
+        <button id="playPause" class="button" type="button">Play</button>
+        <button id="next" class="button" type="button">Next</button>
+        <button id="top" class="button" type="button">Top</button>
+      </div>
+
+      <div class="controls-row controls-row-secondary">
+        <label class="control">
+          <span class="control-label">Speed</span>
+          <input id="speed" type="range" min="5" max="400" step="5" value="60" />
+          <span id="speedVal" class="control-value">60</span>
+        </label>
+
+        <label class="control">
+          <span class="control-label">Font</span>
+          <input id="font" type="range" min="14" max="44" step="1" value="20" />
+          <span id="fontVal" class="control-value">20</span>
+        </label>
+
+        <label class="toggle">
+          <input id="autoscrollToggle" type="checkbox" checked />
+          <span>Auto</span>
         </label>
       </div>
-      <label>Font: <span id="fontVal">20</span>px</label>
-      <input id="font" type="range" min="12" max="48" value="20">
+    </footer>
+  </div>
+
+  <div id="scrim" class="scrim" hidden></div>
+  <aside id="songDrawer" class="drawer" hidden aria-label="Song list">
+    <div class="drawer-header">
+      <div class="drawer-title">Songs</div>
+      <button id="closeSongs" class="button" type="button">Close</button>
     </div>
+    <div id="songList" class="song-list"></div>
   </aside>
 
-  <main class="main">
-    <div class="toolbar">
-      <button id="toggleSidebar" onclick="(function(){var h=document.documentElement.classList;h.toggle('sidebar-hidden');localStorage.setItem('sidebarHidden', document.documentElement.classList.contains('sidebar-hidden')? '1':'0');})()">☰</button>
-      <button id="prev">⟨ Prev</button>
-      <button id="play">▶ Play</button>
-      <button id="pause">⏸ Pause</button>
-      <button id="next">Next ⟩</button>
-      <label class="toggle"><input id="autoscrollToggle" type="checkbox" checked> Auto-scroll</label>
-      <button id="top">Top</button>
-    </div>
-
-    <div id="viewer" class="viewer" tabindex="0"></div>
-  </main>
-
-  <script src="app.js"></script>
+  <script src="app.js" defer></script>
 </body>
 </html>

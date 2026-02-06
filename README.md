@@ -1,57 +1,57 @@
-# Song Scroll (PWA) — auto-scrolling lyrics + chords
+# Song Scroll — simple auto-scrolling lyrics with chords
 
-A tiny static web app you can host on **GitHub Pages** and install on Android as a **PWA** (Add to Home Screen).
-It is designed for **mobile guitar practice**: big controls, offline use, optional *keep screen on*, and two scroll modes.
+This is a tiny static web app to view and auto-scroll lyric+chord text. It can be hosted on GitHub Pages for free.
 
-## Features
+Files included
 
-- **Continuous scroll** (px/sec) or **Step scroll** (scroll 1 line / 2 lines / ~1 page every X seconds)
-- **Song drawer** with search
-- **Settings**: font size, line spacing, chord highlighting, swipe nav, tap-to-play/pause
-- **Optional Wake Lock** to keep the screen on while playing (supported in Chrome/Android)
-- **Offline** caching via Service Worker (works great on GitHub Pages)
+- `index.html` — main UI
+- `styles.css` — styles
+- `app.js` — client logic
+- `songs.txt` — bundled song list (text file with songs separated by a long dashed line)
 
-## Files
+How songs are formatted
+- Songs are stored in `songs.txt` separated by a dashed line (--------------------------------------------).
+- The first non-empty line of each section is used as the song title; the second short line is used as the artist when present.
+- Use square brackets for chords, e.g. `[E] There's something happening here`.
 
-- `index.html` — UI
-- `styles.css` — mobile-first styling
-- `app.js` — logic (parses songs + auto-scroll + wake lock + PWA registration)
-- `songs.txt` — your songs (songs separated by dashed lines)
-- `manifest.webmanifest` — PWA manifest
-- `sw.js` — service worker (offline cache)
-- `icon.svg` — app icon (you can replace with PNGs later)
+Using the app
 
-## Song format (`songs.txt`)
+- Mobile: tap **Songs** to open the song drawer.
+- Controls live in the bottom bar:
+	- **Play/Pause** auto-scroll (auto stops at the end)
+	- **Speed** in px/s
+	- **Font** size
+	- **Auto** toggles whether Play/Pause affects scrolling
+- Settings persist in `localStorage`.
 
-Songs are separated by a dashed line of 8+ dashes, e.g.:
+Keyboard shortcuts
 
+- Space: Play/Pause
+- Left/Right: Previous/Next song
+- Up/Down: Scroll viewer
+- Esc: Close song drawer
+
+Deploy to GitHub Pages
+
+1. Create a new GitHub repo (e.g., `song-scroll`) and push these files to the `main` branch.
+
+```bash
+git init
+git add .
+git commit -m "Initial song-scroll site"
+git branch -M main
+git remote add origin https://github.com/<your-user>/<your-repo>.git
+git push -u origin main
 ```
-My Song Title (Artist)
-...lyrics with [Am] chords...
 
---------------------------------------------
-Another Song — Another Artist
-...
-```
+2. In the repository Settings → Pages, set Source to branch `main` and folder `/ (root)`.
 
-Chords go in square brackets like `[E]` inside the line.
+Features / Tips
+- The song list is parsed from `songs.txt`.
+- To update or add songs, edit `songs.txt` and push changes.
+- Speed + font settings persist.
 
-## Deploy to GitHub Pages
+Optional enhancements
+- Add server-side or automated builds to store each song as a separate file and generate a manifest automatically.
+- Add a small admin form that posts edits to a backend (requires a server or GitHub Actions to commit changes).
 
-1. Create a repo (for example `song-scroll`) and add these files to the repo root.
-2. GitHub → **Settings → Pages**
-   - Source: **Deploy from a branch**
-   - Branch: `main` / folder `/ (root)`
-3. Open your Pages URL on your phone.
-
-## Install on Android
-
-- In Chrome: open the site → **⋮ menu → Add to Home screen / Install app**
-- Use the app icon; it will open full-screen.
-- Turn on **“Keep screen on while playing”** in Settings.
-
-## Tips
-
-- If your scroll speed feels too fast/slow, switch to **Step mode**:
-  - e.g. *Step every 1.2s* and *1 line* is usually easy to follow while playing.
-- Swipe left/right to change songs (toggle in Settings).
