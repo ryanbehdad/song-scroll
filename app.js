@@ -22,11 +22,35 @@ let fontSize = Number(localStorage.getItem('fontSize')||20)
 speedEl.value = speed; speedVal.textContent = speed
 fontEl.value = fontSize; fontVal.textContent = fontSize
 
-fetch('songs.json').then(r=>r.json()).then(data=>{
-  songs = data
+// Load songs from a single text file (`songs.txt`) where songs are separated
+// by a long dashed line (--------------------------------------------)
+fetch('songs.txt').then(r=>r.text()).then(txt=>{
+  songs = parseSongsTxt(txt)
   renderSongList()
-  loadSong(0)
+  if(songs.length) loadSong(0)
 })
+
+function parseSongsTxt(txt){
+  const parts = txt.split(/\r?\n-{10,}\r?\n/).map(p=>p.trim()).filter(Boolean)
+  return parts.map(p=>{
+    const lines = p.split(/\r?\n/)
+      .map(l=>l.replace(/\uFEFF/g,'')) // strip BOM if any
+      .map(l=>l.trimEnd())
+    // first non-empty line is title
+    let idxLine = 0
+    while(idxLine<lines.length && lines[idxLine].trim()==='') idxLine++
+    const title = lines[idxLine]||'Untitled'
+    // next line may be artist if short and not a chord/notation line
+    let artist = ''
+    let contentStart = idxLine+1
+    if(lines[contentStart] && !/\[|\||\|:|\|\s{2,}/.test(lines[contentStart]) && lines[contentStart].length<60 && lines[contentStart].split(' ').length<6){
+      artist = lines[contentStart]
+      contentStart++
+    }
+    const content = lines.slice(contentStart).join('\n').trim()
+    return { title: title.trim(), artist: artist.trim(), content }
+  })
+}
 
 function renderSongList(){
   songListEl.innerHTML = ''
