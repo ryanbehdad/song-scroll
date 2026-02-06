@@ -2,62 +2,165 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Song Scroll</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#0b0d12" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="app">
-    <header class="header">
-      <button id="openSongs" class="button" type="button" aria-haspopup="dialog" aria-controls="songDrawer">Songs</button>
-      <div class="header-title">
-        <div id="songTitle" class="song-title">Song Scroll</div>
-        <div id="songMeta" class="song-meta"></div>
+  <header class="topbar">
+    <button id="btnSongs" class="iconbtn" aria-label="Open songs">☰</button>
+    <div class="brand">
+      <div class="brand-title">Song Scroll</div>
+      <div id="subtitle" class="brand-subtitle">Select a song</div>
+    </div>
+    <button id="btnWake" class="pill" title="Keep the screen awake while playing">Awake: Off</button>
+    <button id="btnSettings" class="iconbtn" aria-label="Open settings">⚙</button>
+  </header>
+
+  <main class="main">
+    <div id="viewer" class="viewer" tabindex="0" aria-label="Song viewer"></div>
+  </main>
+
+  <footer class="player">
+    <div class="player-row">
+      <button id="btnPrev" class="playerbtn" aria-label="Previous song">⟨</button>
+      <button id="btnPlay" class="playerbtn primary" aria-label="Play/Pause">▶</button>
+      <button id="btnNext" class="playerbtn" aria-label="Next song">⟩</button>
+
+      <div class="speedbox">
+        <button id="btnSlower" class="mini" aria-label="Slower">−</button>
+        <div class="speedread">
+          <div class="speednum"><span id="speedVal">15</span></div>
+          <div class="speedunit">px/s</div>
+        </div>
+        <button id="btnFaster" class="mini" aria-label="Faster">+</button>
       </div>
-    </header>
 
-    <main class="content">
-      <div id="viewer" class="viewer" tabindex="0" aria-label="Song viewer"></div>
-    </main>
+      <button id="btnTop" class="playerbtn ghost" aria-label="Back to top">Top</button>
+    </div>
 
-    <footer class="controls" aria-label="Controls">
-      <div class="controls-row">
-        <button id="prev" class="button" type="button">Prev</button>
-        <button id="playPause" class="button" type="button">Play</button>
-        <button id="next" class="button" type="button">Next</button>
-        <button id="top" class="button" type="button">Top</button>
+    <div class="player-row player-row-2">
+      <input id="progress" class="progress" type="range" min="0" max="1000" value="0" aria-label="Scroll position" />
+      <div class="modepill" role="group" aria-label="Scroll mode">
+        <button id="modeSmooth" class="seg active">Smooth</button>
+        <button id="modeStep" class="seg">Step</button>
       </div>
+    </div>
+  </footer>
 
-      <div class="controls-row controls-row-secondary">
-        <label class="control">
-          <span class="control-label">Speed</span>
-          <input id="speed" type="range" min="5" max="400" step="5" value="60" />
-          <span id="speedVal" class="control-value">60</span>
-        </label>
-
-        <label class="control">
-          <span class="control-label">Font</span>
-          <input id="font" type="range" min="14" max="44" step="1" value="20" />
-          <span id="fontVal" class="control-value">20</span>
-        </label>
-
-        <label class="toggle">
-          <input id="autoscrollToggle" type="checkbox" checked />
-          <span>Auto</span>
-        </label>
+  <!-- Songs sheet -->
+  <div id="sheetSongs" class="sheet hidden" role="dialog" aria-modal="true" aria-label="Songs">
+    <div class="sheet-card">
+      <div class="sheet-head">
+        <div class="sheet-title">Songs</div>
+        <button class="iconbtn" data-close="sheetSongs" aria-label="Close">✕</button>
       </div>
-    </footer>
+      <div class="sheet-body">
+        <input id="songSearch" class="input" placeholder="Search…" autocomplete="off" />
+        <div id="songList" class="songlist" role="list"></div>
+      </div>
+      <div class="sheet-foot muted">
+        Tip: edit <span class="mono">songs.txt</span> in your repo to add songs.
+      </div>
+    </div>
   </div>
 
-  <div id="scrim" class="scrim" hidden></div>
-  <aside id="songDrawer" class="drawer" hidden aria-label="Song list">
-    <div class="drawer-header">
-      <div class="drawer-title">Songs</div>
-      <button id="closeSongs" class="button" type="button">Close</button>
-    </div>
-    <div id="songList" class="song-list"></div>
-  </aside>
+  <!-- Settings sheet -->
+  <div id="sheetSettings" class="sheet hidden" role="dialog" aria-modal="true" aria-label="Settings">
+    <div class="sheet-card">
+      <div class="sheet-head">
+        <div class="sheet-title">Settings</div>
+        <button class="iconbtn" data-close="sheetSettings" aria-label="Close">✕</button>
+      </div>
 
-  <script src="app.js" defer></script>
+      <div class="sheet-body settings">
+        <section class="card">
+          <div class="row between">
+            <div>
+              <div class="label">Smooth speed</div>
+              <div class="hint">1–40 px/s (default 15). Small values still scroll smoothly.</div>
+            </div>
+            <div class="mono" id="speedVal2">15</div>
+          </div>
+          <input id="speed" type="range" min="1" max="40" step="1" value="15" />
+        </section>
+
+        <section class="card">
+          <div class="label">Step mode</div>
+          <div class="row wrap">
+            <label class="field">
+              Step size
+              <select id="stepSize" class="input small">
+                <option value="line">1 line</option>
+                <option value="two">2 lines</option>
+                <option value="half">½ page</option>
+                <option value="page">1 page</option>
+              </select>
+            </label>
+            <label class="field">
+              Every (seconds)
+              <input id="stepEvery" class="input small" type="number" min="0.2" step="0.1" value="2.0" />
+            </label>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="label">Text</div>
+          <div class="row wrap">
+            <label class="field grow">
+              Font size
+              <input id="font" type="range" min="14" max="34" step="1" value="20" />
+            </label>
+            <div class="mono" id="fontVal">20 px</div>
+          </div>
+          <div class="row wrap">
+            <label class="field grow">
+              Line spacing
+              <input id="lineHeight" type="range" min="1.2" max="2.0" step="0.05" value="1.55" />
+            </label>
+            <div class="mono" id="lhVal">1.55</div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="row between">
+            <div>
+              <div class="label">Tap viewer to play/pause</div>
+              <div class="hint">Handy when you’re mid-song.</div>
+            </div>
+            <label class="switch">
+              <input id="tapToggle" type="checkbox" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="label">Fit song into (Smooth)</div>
+          <div class="row wrap">
+            <input id="fitMinutes" class="input small" type="number" min="1" max="60" value="4" />
+            <button id="btnFit" class="btn">Set speed</button>
+            <div class="hint">Calculates a smooth speed to reach the bottom in N minutes (clamped to 1–40).</div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="label">Gestures</div>
+          <div class="hint">Swipe left/right on the viewer for next/prev song.</div>
+        </section>
+      </div>
+
+      <div class="sheet-foot muted">
+        Shortcuts: Space=Play/Pause · ↑/↓=Speed · PageDown/PageUp=Jump · Home=Top
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
 </body>
 </html>

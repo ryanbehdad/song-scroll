@@ -1,328 +1,602 @@
-const viewer = document.getElementById('viewer')
-const songListEl = document.getElementById('songList')
+// Song Scroll - mobile-first autoscroll viewer for chord sheets (GitHub Pages)
+// Data source: songs.txt (same format as your original project)
 
-const openSongsBtn = document.getElementById('openSongs')
-const closeSongsBtn = document.getElementById('closeSongs')
-const drawerEl = document.getElementById('songDrawer')
-const scrimEl = document.getElementById('scrim')
+const viewer = document.getElementById("viewer");
+const subtitle = document.getElementById("subtitle");
 
-const songTitleEl = document.getElementById('songTitle')
-const songMetaEl = document.getElementById('songMeta')
+const sheetSongs = document.getElementById("sheetSongs");
+const sheetSettings = document.getElementById("sheetSettings");
 
-const speedEl = document.getElementById('speed')
-const speedVal = document.getElementById('speedVal')
-const fontEl = document.getElementById('font')
-const fontVal = document.getElementById('fontVal')
-const playPauseBtn = document.getElementById('playPause')
-const prevBtn = document.getElementById('prev')
-const nextBtn = document.getElementById('next')
-const topBtn = document.getElementById('top')
-const autoToggle = document.getElementById('autoscrollToggle')
+const btnSongs = document.getElementById("btnSongs");
+const btnSettings = document.getElementById("btnSettings");
+const btnWake = document.getElementById("btnWake");
 
-const STORAGE = {
-  scrollSpeed: 'scrollSpeed',
-  fontSize: 'fontSize',
+const btnPrev = document.getElementById("btnPrev");
+const btnPlay = document.getElementById("btnPlay");
+const btnNext = document.getElementById("btnNext");
+const btnTop = document.getElementById("btnTop");
+
+const speedVal = document.getElementById("speedVal");
+const speedVal2 = document.getElementById("speedVal2");
+const btnSlower = document.getElementById("btnSlower");
+const btnFaster = document.getElementById("btnFaster");
+
+const progress = document.getElementById("progress");
+
+const modeSmoothBtn = document.getElementById("modeSmooth");
+const modeStepBtn = document.getElementById("modeStep");
+
+const songSearch = document.getElementById("songSearch");
+const songList = document.getElementById("songList");
+
+const speed = document.getElementById("speed");
+const stepSize = document.getElementById("stepSize");
+const stepEvery = document.getElementById("stepEvery");
+
+const font = document.getElementById("font");
+const fontVal = document.getElementById("fontVal");
+const lineHeight = document.getElementById("lineHeight");
+const lhVal = document.getElementById("lhVal");
+
+const tapToggle = document.getElementById("tapToggle");
+const fitMinutes = document.getElementById("fitMinutes");
+const btnFit = document.getElementById("btnFit");
+
+const toast = document.getElementById("toast");
+
+const LS_KEY = "songscroll_prefs_v2";
+
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+let songs = [];
+let idx = 0;
+
+// --- Preferences ---
+let prefs = {
+  mode: "smooth",         // "smooth" | "step"
+  speed: 15,              // px/s (1..40)  <-- requested
+  stepSize: "line",       // line | two | half | page
+  stepEvery: 2.0,         // seconds
+  fontPx: 20,
+  lineHeight: 1.55,
+  wakeEnabled: false,
+  tapToToggle: true
+};
+
+function loadPrefs(){
+  try{
+    const p = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+    if (p && typeof p === "object") prefs = {...prefs, ...p};
+  }catch{}
+  // enforce requested constraints
+  prefs.speed = clamp(Number(prefs.speed) || 15, 1, 40);
+  prefs.stepEvery = clamp(Number(prefs.stepEvery) || 2.0, 0.2, 30);
+  prefs.fontPx = clamp(Number(prefs.fontPx) || 20, 14, 34);
+  prefs.lineHeight = clamp(Number(prefs.lineHeight) || 1.55, 1.2, 2.0);
+}
+function savePrefs(){
+  localStorage.setItem(LS_KEY, JSON.stringify(prefs));
 }
 
-const DESKTOP_MQ = window.matchMedia('(min-width: 980px)')
+// --- Toast ---
+let toastTimer = null;
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.remove("hidden");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.add("hidden"), 1500);
+}
 
-let songs = []
-let idx = 0
+// --- Sheet controls ---
+function openSheet(el, open){
+  el.classList.toggle("hidden", !open);
+}
+btnSongs.addEventListener("click", () => openSheet(sheetSongs, true));
+btnSettings.addEventListener("click", () => openSheet(sheetSettings, true));
 
-let isPlaying = false
-let scrollStartTs = 0
-let scrollStartTop = 0
+document.querySelectorAll("[data-close]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.getAttribute("data-close");
+    const el = document.getElementById(id);
+    if (el) openSheet(el, false);
+  });
+});
 
-let speed = safeNumber(localStorage.getItem(STORAGE.scrollSpeed), 60)
-let fontSize = safeNumber(localStorage.getItem(STORAGE.fontSize), 20)
+[sheetSongs, sheetSettings].forEach(el => {
+  el.addEventListener("click", (e) => {
+    if (e.target === el) openSheet(el, false);
+  });
+});
 
-speed = clamp(speed, 5, 400)
-fontSize = clamp(fontSize, 14, 44)
+// --- Chord rendering ---
+const CHORD_IN_BRACKETS = /\[([^\]]+)\]/g;
 
-speedEl.value = String(speed)
-speedVal.textContent = String(speed)
-fontEl.value = String(fontSize)
-fontVal.textContent = String(fontSize)
-viewer.style.fontSize = fontSize + 'px'
+function escapeHtml(s){
+  return s
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
 
-syncDrawerToViewport()
-DESKTOP_MQ.addEventListener('change', () => syncDrawerToViewport())
+function renderSong(song){
+  const titleLine = `<div class="song-titleline">${escapeHtml(song.title)}${song.artist ? " — " + escapeHtml(song.artist) : ""}</div>`;
+  const lines = (song.content || "").split(/\n/);
 
-// Load bundled songs.txt
-fetch('songs.txt', { cache: 'no-cache' })
-  .then((r) => {
-    if (!r.ok) throw new Error('HTTP ' + r.status)
-    return r.text()
-  })
-  .then((txt) => {
-    songs = parseSongsTxt(txt)
-    renderSongList()
-    if (songs.length) loadSong(0)
-  })
-  .catch((err) => {
-    console.error('Failed to load songs.txt', err)
-    songListEl.innerHTML = ''
-    const el = document.createElement('div')
-    el.className = 'song-item'
-    el.textContent = '(failed to load songs)'
-    songListEl.appendChild(el)
-  })
+  // Keep the user's layout exactly. Highlight [CHORD] tokens.
+  const out = lines.map(line => {
+    const chords = [];
+    const placeholder = line.replace(CHORD_IN_BRACKETS, (_m, g) => {
+      const id = chords.length;
+      chords.push(g);
+      return `@@CHORD${id}@@`;
+    });
 
-function parseSongsTxt(txt) {
-  const cleaned = String(txt || '').replace(/\uFEFF/g, '')
-  const parts = cleaned
+    let escaped = escapeHtml(placeholder);
+    escaped = escaped.replace(/@@CHORD(\d+)@@/g, (_m, n) => {
+      const c = chords[Number(n)] || "";
+      return `<span class="chord">${escapeHtml(c)}</span>`;
+    });
+
+    // Preserve spacing: use <pre> but wrap each line to allow chord highlighting
+    return escaped;
+  }).join("\n");
+
+  viewer.innerHTML = titleLine + `<pre class="songtext mono">${out}</pre>`;
+}
+
+// --- Parse songs.txt (same idea as your original) ---
+function parseSongsTxt(txt){
+  const parts = txt
     .split(/\r?\n-{10,}\r?\n/)
-    .map((p) => p.trim())
-    .filter(Boolean)
+    .map(p => p.replace(/\uFEFF/g, "").trim())
+    .filter(Boolean);
 
-  return parts.map((p) => {
-    const lines = p.split(/\r?\n/).map((l) => l.trimEnd())
-    let lineIdx = 0
-    while (lineIdx < lines.length && lines[lineIdx].trim() === '') lineIdx++
-    const title = (lines[lineIdx] || 'Untitled').trim()
-    let artist = ''
-    let contentStart = lineIdx + 1
-    if (looksLikeArtistLine(lines[contentStart])) {
-      artist = (lines[contentStart] || '').trim()
-      contentStart++
-    }
-    const content = lines.slice(contentStart).join('\n').trim()
-    return { title, artist, content }
-  })
-}
+  return parts.map(p => {
+    const lines = p.split(/\r?\n/).map(l => l.trimEnd());
+    let i = 0;
+    while (i < lines.length && lines[i].trim() === "") i++;
+    const title = lines[i] ? lines[i].trim() : "Untitled";
+    let artist = "";
+    let contentStart = i + 1;
 
-function looksLikeArtistLine(line) {
-  if (!line) return false
-  const s = line.trim()
-  if (!s) return false
-  if (s.length > 60) return false
-  if (s.split(/\s+/).length > 6) return false
-  if (/\[|\]|\|/.test(s)) return false
-  return true
-}
-
-function renderSongList() {
-  songListEl.innerHTML = ''
-  songs.forEach((s, i) => {
-    const el = document.createElement('div')
-    el.className = 'song-item'
-    if (i === idx) el.classList.add('active')
-    el.textContent = s.title + (s.artist ? ' — ' + s.artist : '')
-    el.addEventListener('click', () => {
-      loadSong(i)
-      if (!DESKTOP_MQ.matches) closeDrawer()
-    })
-    songListEl.appendChild(el)
-  })
-}
-
-function loadSong(i) {
-  idx = clamp(i, 0, Math.max(0, songs.length - 1))
-  const s = songs[idx]
-  if (!s) return
-
-  updateHeader(s)
-
-  viewer.innerHTML = ''
-  viewer.appendChild(renderSongContent(s))
-  viewer.scrollTop = 0
-  resetScrollBaseline()
-
-  updateActiveSongItem()
-}
-
-function updateHeader(song) {
-  songTitleEl.textContent = song.title || 'Untitled'
-  songMetaEl.textContent = song.artist || ''
-}
-
-function updateActiveSongItem() {
-  const items = songListEl.querySelectorAll('.song-item')
-  items.forEach((el, i) => el.classList.toggle('active', i === idx))
-}
-
-function renderSongContent(song) {
-  const root = document.createElement('div')
-
-  const titleLine = document.createElement('div')
-  titleLine.className = 'line'
-  titleLine.style.fontWeight = '700'
-  titleLine.style.fontSize = (fontSize + 6) + 'px'
-  titleLine.textContent = song.title + (song.artist ? ' — ' + song.artist : '')
-  root.appendChild(titleLine)
-
-  const content = String(song.content || '')
-  const lines = content.split(/\n/)
-  for (const lineText of lines) {
-    const lineEl = document.createElement('div')
-    lineEl.className = 'line'
-    appendChordifiedLine(lineEl, lineText)
-    root.appendChild(lineEl)
-  }
-
-  return root
-}
-
-function appendChordifiedLine(container, lineText) {
-  const text = String(lineText || '')
-  let lastIndex = 0
-  const chordRegex = /\[([^\]]+)\]/g
-  let match
-  while ((match = chordRegex.exec(text))) {
-    const before = text.slice(lastIndex, match.index)
-    if (before) container.appendChild(document.createTextNode(before))
-
-    const chord = String(match[1] || '').trim()
-    if (chord) {
-      const chordEl = document.createElement('span')
-      chordEl.className = 'chord'
-      chordEl.textContent = chord
-      container.appendChild(chordEl)
+    // Heuristic: second short line without chord markup is artist
+    const maybeArtist = lines[contentStart] || "";
+    if (
+      maybeArtist &&
+      !/[\[\]|]/.test(maybeArtist) &&
+      maybeArtist.length < 60 &&
+      maybeArtist.split(" ").length < 7
+    ){
+      artist = maybeArtist.trim();
+      contentStart++;
     }
 
-    lastIndex = match.index + match[0].length
-  }
-  const rest = text.slice(lastIndex)
-  if (rest) container.appendChild(document.createTextNode(rest))
+    const content = lines.slice(contentStart).join("\n").trim();
+    return { title, artist, content };
+  });
 }
 
-function setPlaying(playing) {
-  isPlaying = Boolean(playing)
-  playPauseBtn.textContent = isPlaying ? 'Pause' : 'Play'
-  if (isPlaying) resetScrollBaseline()
+async function loadSongs(){
+  // Network-first for songs.txt so updates show quickly (works with service worker too).
+  const res = await fetch("songs.txt", { cache: "no-store" });
+  const txt = await res.text();
+  songs = parseSongsTxt(txt);
 }
 
-function resetScrollBaseline() {
-  scrollStartTs = performance.now()
-  scrollStartTop = viewer.scrollTop
+// --- Playback (smooth + step) ---
+let playing = false;
+
+// smooth loop
+let rafId = null;
+let lastTs = null;
+
+// step mode interval
+let stepTimer = null;
+
+// If the browser quantises scrollTop to integer pixels, very low speeds can look like they 'stop'.
+// We keep a fractional carry so low speeds still advance reliably.
+let smoothCarry = 0;
+
+function setMode(mode){
+  prefs.mode = mode;
+  savePrefs();
+
+  modeSmoothBtn.classList.toggle("active", mode === "smooth");
+  modeStepBtn.classList.toggle("active", mode === "step");
+
+  // Stop current playback when switching modes
+  stop();
 }
 
-function maxScrollTop() {
-  return Math.max(0, viewer.scrollHeight - viewer.clientHeight)
+modeSmoothBtn.addEventListener("click", () => setMode("smooth"));
+modeStepBtn.addEventListener("click", () => setMode("step"));
+
+function scrollableMax(){
+  return Math.max(0, viewer.scrollHeight - viewer.clientHeight);
+}
+function atBottom(){
+  return viewer.scrollTop >= scrollableMax() - 1;
 }
 
-function tick(ts) {
-  requestAnimationFrame(tick)
-  if (!autoToggle.checked || !isPlaying) return
-
-  const maxTop = maxScrollTop()
-  if (maxTop <= 0) return
-
-  const elapsed = (ts - scrollStartTs) / 1000
-  const nextTop = scrollStartTop + speed * elapsed
-  viewer.scrollTop = Math.min(maxTop, Math.floor(nextTop))
-
-  if (viewer.scrollTop >= maxTop) setPlaying(false)
+function updateProgressFromScroll(){
+  const max = scrollableMax();
+  const val = max <= 0 ? 0 : Math.round((viewer.scrollTop / max) * 1000);
+  progress.value = String(clamp(val, 0, 1000));
 }
-requestAnimationFrame(tick)
-
-// If the user scrolls while playing, keep the baseline in sync
-let userScrollDebounce = 0
-viewer.addEventListener(
-  'scroll',
-  () => {
-    if (!isPlaying) return
-    clearTimeout(userScrollDebounce)
-    userScrollDebounce = setTimeout(() => {
-      resetScrollBaseline()
-    }, 120)
-  },
-  { passive: true }
-)
-
-playPauseBtn.addEventListener('click', () => setPlaying(!isPlaying))
-prevBtn.addEventListener('click', () => {
-  if (idx > 0) loadSong(idx - 1)
-})
-nextBtn.addEventListener('click', () => {
-  if (idx < songs.length - 1) loadSong(idx + 1)
-})
-topBtn.addEventListener('click', () => {
-  viewer.scrollTop = 0
-  resetScrollBaseline()
-})
-
-speedEl.addEventListener('input', () => {
-  speed = clamp(Number(speedEl.value), 5, 400)
-  speedVal.textContent = String(speed)
-  localStorage.setItem(STORAGE.scrollSpeed, String(speed))
-  resetScrollBaseline()
-})
-
-fontEl.addEventListener('input', () => {
-  fontSize = clamp(Number(fontEl.value), 14, 44)
-  fontVal.textContent = String(fontSize)
-  viewer.style.fontSize = fontSize + 'px'
-  localStorage.setItem(STORAGE.fontSize, String(fontSize))
-  const current = songs[idx]
-  if (current) updateHeader(current)
-  // re-render to apply title size changes
-  if (current) {
-    const top = viewer.scrollTop
-    viewer.innerHTML = ''
-    viewer.appendChild(renderSongContent(current))
-    viewer.scrollTop = Math.min(top, maxScrollTop())
-    resetScrollBaseline()
-  }
-})
-
-// Drawer
-openSongsBtn.addEventListener('click', () => openDrawer())
-closeSongsBtn.addEventListener('click', () => closeDrawer())
-scrimEl.addEventListener('click', () => closeDrawer())
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeDrawer()
-})
-
-function openDrawer() {
-  if (DESKTOP_MQ.matches) return
-  drawerEl.hidden = false
-  scrimEl.hidden = false
-  // focus the drawer for keyboard users
-  drawerEl.setAttribute('tabindex', '-1')
-  drawerEl.focus({ preventScroll: true })
+function updateScrollFromProgress(){
+  const max = scrollableMax();
+  const v = Number(progress.value) || 0;
+  viewer.scrollTop = (v / 1000) * max;
 }
 
-function closeDrawer() {
-  if (DESKTOP_MQ.matches) return
-  drawerEl.hidden = true
-  scrimEl.hidden = true
-  openSongsBtn.focus({ preventScroll: true })
+progress.addEventListener("input", () => {
+  updateScrollFromProgress();
+});
+
+viewer.addEventListener("scroll", () => {
+  smoothCarry = 0;
+  updateProgressFromScroll();
+});
+
+function applySpeedToUI(){
+  const s = clamp(Number(prefs.speed) || 15, 1, 40);
+  prefs.speed = s;
+  speed.value = String(s);
+  speedVal.textContent = String(s);
+  speedVal2.textContent = String(s);
+}
+function setSpeedValue(v){
+  const s = clamp(Number(v) || 15, 1, 40);
+  prefs.speed = s;
+  savePrefs();
+  applySpeedToUI();
 }
 
-function syncDrawerToViewport() {
-  if (DESKTOP_MQ.matches) {
-    drawerEl.hidden = false
-    scrimEl.hidden = true
+speed.addEventListener("input", () => setSpeedValue(speed.value));
+
+btnSlower.addEventListener("click", () => {
+  setSpeedValue(prefs.speed - 1);  // requested increment 1
+  showToast(`Speed: ${prefs.speed}`);
+});
+btnFaster.addEventListener("click", () => {
+  setSpeedValue(prefs.speed + 1);  // requested increment 1
+  showToast(`Speed: ${prefs.speed}`);
+});
+
+function playIcon(){
+  btnPlay.textContent = playing ? "⏸" : "▶";
+}
+
+function stopTimers(){
+  if (rafId) cancelAnimationFrame(rafId);
+  rafId = null;
+  lastTs = null;
+  if (stepTimer) clearInterval(stepTimer);
+  stepTimer = null;
+  smoothCarry = 0;
+}
+
+function start(){
+  if (!songs.length) return;
+  if (playing) return;
+
+  playing = true;
+  playIcon();
+
+  if (prefs.wakeEnabled) acquireWakeLock();
+
+  // Sync internal scroll state with current scrollTop
+  if (prefs.mode === "smooth"){
+    lastTs = null;
+    smoothCarry = 0;
+    rafId = requestAnimationFrame(tickSmooth);
   } else {
-    drawerEl.hidden = true
-    scrimEl.hidden = true
+    startStep();
   }
 }
 
-// Keyboard shortcuts
-document.addEventListener('keydown', (e) => {
-  if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return
-
-  if (e.key === ' ') {
-    e.preventDefault()
-    setPlaying(!isPlaying)
-  }
-  if (e.key === 'ArrowRight') {
-    if (idx < songs.length - 1) loadSong(idx + 1)
-  }
-  if (e.key === 'ArrowLeft') {
-    if (idx > 0) loadSong(idx - 1)
-  }
-  if (e.key === 'ArrowUp') viewer.scrollTop -= 60
-  if (e.key === 'ArrowDown') viewer.scrollTop += 60
-})
-
-function clamp(n, min, max) {
-  return Math.min(max, Math.max(min, n))
+function stop(){
+  playing = false;
+  playIcon();
+  stopTimers();
+  releaseWakeLock();
 }
 
-function safeNumber(value, fallback) {
-  const n = Number(value)
-  return Number.isFinite(n) ? n : fallback
+function toggle(){
+  playing ? stop() : start();
 }
+
+btnPlay.addEventListener("click", toggle);
+btnTop.addEventListener("click", () => { viewer.scrollTop = 0; updateProgressFromScroll(); });
+
+btnPrev.addEventListener("click", () => prevSong());
+btnNext.addEventListener("click", () => nextSong());
+
+function tickSmooth(ts){
+  if (!playing || prefs.mode !== "smooth") return;
+
+  if (!lastTs) lastTs = ts;
+  // clamp dt to avoid huge jumps if the tab is suspended
+  const dt = clamp((ts - lastTs) / 1000, 0, 0.05);
+  lastTs = ts;
+
+  const before = viewer.scrollTop;
+  const delta = prefs.speed * dt;
+
+  // Try fractional scrolling first (smoothest in modern browsers).
+  viewer.scrollTop = before + delta;
+
+  // Fallback: if scrollTop didn't change (common when quantised) and delta is sub-pixel,
+  // accumulate until we can advance by >= 1px.
+  const after = viewer.scrollTop;
+  if (after === before && delta > 0 && delta < 1){
+    smoothCarry += delta;
+    const step = Math.floor(smoothCarry);
+    if (step >= 1){
+      viewer.scrollTop = before + step;
+      smoothCarry -= step;
+    }
+  } else {
+    smoothCarry = 0;
+  }
+
+  updateProgressFromScroll();
+
+  if (atBottom()){
+    stop();
+    return;
+  }
+  rafId = requestAnimationFrame(tickSmooth);
+}
+
+function linePx(){
+  const lh = parseFloat(getComputedStyle(viewer).lineHeight) || 24;
+  return lh;
+}
+
+function stepAmount(){
+  const size = stepSize.value;
+  const lh = linePx();
+  if (size === "line") return lh;
+  if (size === "two") return lh * 2;
+  if (size === "half") return Math.max(lh, Math.floor(viewer.clientHeight * 0.5));
+  return Math.max(lh, Math.floor(viewer.clientHeight * 0.9));
+}
+
+function startStep(){
+  const every = clamp(Number(stepEvery.value) || prefs.stepEvery, 0.2, 30);
+  prefs.stepEvery = every;
+  prefs.stepSize = stepSize.value;
+  savePrefs();
+
+  const doStep = () => {
+    if (!playing || prefs.mode !== "step") return;
+    viewer.scrollTop = viewer.scrollTop + stepAmount();
+    updateProgressFromScroll();
+    if (atBottom()) stop();
+  };
+
+  doStep();
+  stepTimer = setInterval(doStep, every * 1000);
+}
+
+stepSize.addEventListener("change", () => {
+  prefs.stepSize = stepSize.value; savePrefs();
+});
+stepEvery.addEventListener("change", () => {
+  prefs.stepEvery = clamp(Number(stepEvery.value) || 2.0, 0.2, 30); savePrefs();
+});
+
+// Tap viewer toggles play/pause (optional)
+viewer.addEventListener("click", () => {
+  if (!prefs.tapToToggle) return;
+  // avoid accidental toggles while dragging progress
+  toggle();
+});
+
+tapToggle.addEventListener("change", () => {
+  prefs.tapToToggle = !!tapToggle.checked;
+  savePrefs();
+});
+
+// Fit speed to minutes (smooth mode)
+btnFit.addEventListener("click", () => {
+  const mins = clamp(Number(fitMinutes.value) || 4, 1, 60);
+  // compute required speed, then clamp to 1..40
+  const max = scrollableMax();
+  const needed = max / (mins * 60);
+  const s = clamp(needed, 1, 40);
+  setSpeedValue(s);
+  setMode("smooth");
+  showToast(`Speed set to ${prefs.speed}`);
+});
+
+// Font / line-height
+function applyTypography(){
+  viewer.style.fontSize = `${prefs.fontPx}px`;
+  viewer.style.lineHeight = String(prefs.lineHeight);
+  font.value = String(prefs.fontPx);
+  fontVal.textContent = `${prefs.fontPx} px`;
+  lineHeight.value = String(prefs.lineHeight);
+  lhVal.textContent = String(prefs.lineHeight);
+}
+font.addEventListener("input", () => {
+  prefs.fontPx = clamp(Number(font.value) || 20, 14, 34);
+  savePrefs();
+  applyTypography();
+});
+lineHeight.addEventListener("input", () => {
+  prefs.lineHeight = clamp(Number(lineHeight.value) || 1.55, 1.2, 2.0);
+  savePrefs();
+  applyTypography();
+});
+
+// --- Wake Lock ---
+let wakeLock = null;
+
+async function acquireWakeLock(){
+  try{
+    if (!("wakeLock" in navigator)) throw new Error("Wake Lock unsupported");
+    wakeLock = await navigator.wakeLock.request("screen");
+  }catch(e){
+    wakeLock = null;
+  }
+  renderWakeUI();
+}
+async function releaseWakeLock(){
+  try{
+    if (wakeLock) await wakeLock.release();
+  }catch{}
+  wakeLock = null;
+  renderWakeUI();
+}
+function renderWakeUI(){
+  btnWake.textContent = prefs.wakeEnabled ? "Awake: On" : "Awake: Off";
+  if (prefs.wakeEnabled && !wakeLock && playing) {
+    // If lock was released (focus change), try again
+    btnWake.textContent = "Awake: …";
+  }
+}
+btnWake.addEventListener("click", async () => {
+  prefs.wakeEnabled = !prefs.wakeEnabled;
+  savePrefs();
+  if (prefs.wakeEnabled && playing) await acquireWakeLock();
+  if (!prefs.wakeEnabled) await releaseWakeLock();
+  renderWakeUI();
+});
+document.addEventListener("visibilitychange", async () => {
+  if (document.visibilityState === "visible" && prefs.wakeEnabled && playing) {
+    await acquireWakeLock();
+  }
+});
+
+// --- Song selection ---
+function setSubtitle(){
+  if (!songs.length) {
+    subtitle.textContent = "No songs found";
+    return;
+  }
+  const s = songs[idx];
+  subtitle.textContent = s ? (s.title + (s.artist ? " — " + s.artist : "")) : "Select a song";
+}
+
+function loadSong(i){
+  idx = clamp(i, 0, songs.length - 1);
+  stop();
+  renderSong(songs[idx]);
+  viewer.scrollTop = 0;
+  updateProgressFromScroll();
+  setSubtitle();
+}
+
+function prevSong(){
+  if (!songs.length) return;
+  loadSong((idx - 1 + songs.length) % songs.length);
+}
+function nextSong(){
+  if (!songs.length) return;
+  loadSong((idx + 1) % songs.length);
+}
+
+function renderSongList(filter=""){
+  const q = (filter || "").trim().toLowerCase();
+  songList.innerHTML = "";
+  songs.forEach((s, i) => {
+    const hay = (s.title + " " + (s.artist || "")).toLowerCase();
+    if (q && !hay.includes(q)) return;
+
+    const item = document.createElement("button");
+    item.type = "button";
+    item.className = "songitem";
+    item.role = "listitem";
+    item.innerHTML = `<div class="t">${escapeHtml(s.title)}</div>${s.artist ? `<div class="a">${escapeHtml(s.artist)}</div>` : ""}`;
+    item.addEventListener("click", () => {
+      loadSong(i);
+      openSheet(sheetSongs, false);
+    });
+    songList.appendChild(item);
+  });
+}
+
+songSearch.addEventListener("input", () => renderSongList(songSearch.value));
+
+// --- Keyboard (and pedal) shortcuts ---
+document.addEventListener("keydown", (e) => {
+  if (!sheetSongs.classList.contains("hidden") || !sheetSettings.classList.contains("hidden")) return;
+
+  if (e.code === "Space") { e.preventDefault(); toggle(); }
+  if (e.code === "Home") { e.preventDefault(); viewer.scrollTop = 0; }
+
+  // Speed in smooth mode
+  if (prefs.mode === "smooth") {
+    if (e.code === "ArrowUp") { e.preventDefault(); setSpeedValue(prefs.speed + 1); }
+    if (e.code === "ArrowDown") { e.preventDefault(); setSpeedValue(prefs.speed - 1); }
+  }
+
+  if (e.code === "ArrowRight") { e.preventDefault(); nextSong(); }
+  if (e.code === "ArrowLeft") { e.preventDefault(); prevSong(); }
+
+  if (e.code === "PageDown") { e.preventDefault(); viewer.scrollTop += Math.floor(viewer.clientHeight * 0.9); }
+  if (e.code === "PageUp") { e.preventDefault(); viewer.scrollTop -= Math.floor(viewer.clientHeight * 0.9); }
+});
+
+// --- Swipe gestures (left/right to change songs) ---
+let touchStartX = null;
+let touchStartY = null;
+viewer.addEventListener("touchstart", (e) => {
+  const t = e.touches[0];
+  touchStartX = t.clientX;
+  touchStartY = t.clientY;
+}, { passive: true });
+
+viewer.addEventListener("touchend", (e) => {
+  if (touchStartX == null || touchStartY == null) return;
+  const t = e.changedTouches[0];
+  const dx = t.clientX - touchStartX;
+  const dy = t.clientY - touchStartY;
+  touchStartX = null;
+  touchStartY = null;
+
+  // Horizontal swipe only if mostly horizontal
+  if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    if (dx < 0) nextSong();
+    else prevSong();
+    showToast(dx < 0 ? "Next" : "Previous");
+  }
+}, { passive: true });
+
+// --- App init ---
+async function init(){
+  loadPrefs();
+
+  applySpeedToUI();
+  applyTypography();
+
+  stepSize.value = prefs.stepSize;
+  stepEvery.value = String(prefs.stepEvery);
+  tapToggle.checked = !!prefs.tapToToggle;
+
+  renderWakeUI();
+  setMode(prefs.mode);
+
+  try{
+    await loadSongs();
+    renderSongList("");
+    if (songs.length) loadSong(0);
+    else {
+      subtitle.textContent = "songs.txt is empty";
+      viewer.innerHTML = '<div class="muted">No songs found. Add songs to songs.txt in your repo.</div>';
+    }
+  }catch(err){
+    console.error(err);
+    subtitle.textContent = "Failed to load songs";
+    viewer.innerHTML = '<div class="muted">Failed to load songs.txt. Check it exists in the repo root.</div>';
+  }
+
+  // Service worker
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js").catch(()=>{});
+  }
+}
+init();

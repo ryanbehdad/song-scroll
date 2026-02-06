@@ -1,57 +1,46 @@
-# Song Scroll — simple auto-scrolling lyrics with chords
+# Song Scroll (GitHub Pages PWA)
 
-This is a tiny static web app to view and auto-scroll lyric+chord text. It can be hosted on GitHub Pages for free.
+This is a mobile-first chord/lyrics viewer with auto-scroll.
 
-Files included
+Your GitHub Pages address:
+- https://ryanbehdad.github.io/song-scroll/
 
-- `index.html` — main UI
-- `styles.css` — styles
-- `app.js` — client logic
-- `songs.txt` — bundled song list (text file with songs separated by a long dashed line)
+## Files in this project
 
-How songs are formatted
-- Songs are stored in `songs.txt` separated by a dashed line (--------------------------------------------).
-- The first non-empty line of each section is used as the song title; the second short line is used as the artist when present.
-- Use square brackets for chords, e.g. `[E] There's something happening here`.
+- `index.html` – app UI
+- `styles.css` – modern mobile-first styling
+- `app.js` – logic (loads and parses `songs.txt`, auto-scroll, settings, wake lock)
+- `songs.txt` – your songs (same separator format as your original project)
+- `manifest.webmanifest` – PWA manifest (configured for `/song-scroll/`)
+- `sw.js` – service worker for offline use
+- `icon.svg` – app icon
 
-Using the app
+## songs.txt format
 
-- Mobile: tap **Songs** to open the song drawer.
-- Controls live in the bottom bar:
-	- **Play/Pause** auto-scroll (auto stops at the end)
-	- **Speed** in px/s
-	- **Font** size
-	- **Auto** toggles whether Play/Pause affects scrolling
-- Settings persist in `localStorage`.
+Songs are separated by a line of 10+ dashes, e.g.
 
-Keyboard shortcuts
+----------
+Title
+Artist (optional)
+Lyrics and chords...
 
-- Space: Play/Pause
-- Left/Right: Previous/Next song
-- Up/Down: Scroll viewer
-- Esc: Close song drawer
+----------
+Next Title
+...
 
-Deploy to GitHub Pages
+## Auto-scroll speed
 
-1. Create a new GitHub repo (e.g., `song-scroll`) and push these files to the `main` branch.
+- Smooth mode uses **1–40 px/s**, default **15**.
+- Speed changes in **increments of 1**.
+- The app avoids `Math.floor()` when updating scroll position, so low speeds still move smoothly.
 
-```bash
-git init
-git add .
-git commit -m "Initial song-scroll site"
-git branch -M main
-git remote add origin https://github.com/<your-user>/<your-repo>.git
-git push -u origin main
-```
+## Deploy
 
-2. In the repository Settings → Pages, set Source to branch `main` and folder `/ (root)`.
+1. Commit all files to the repo root.
+2. GitHub → Settings → Pages → Deploy from branch → `main` → `/ (root)`.
+3. On Android Chrome: open the site → menu → **Install app** / **Add to Home screen**.
 
-Features / Tips
-- The song list is parsed from `songs.txt`.
-- To update or add songs, edit `songs.txt` and push changes.
-- Speed + font settings persist.
+## Offline
 
-Optional enhancements
-- Add server-side or automated builds to store each song as a separate file and generate a manifest automatically.
-- Add a small admin form that posts edits to a backend (requires a server or GitHub Actions to commit changes).
-
+After first load, the app works offline.
+`songs.txt` uses a network-first strategy so updates appear after you deploy.
