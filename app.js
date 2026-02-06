@@ -11,6 +11,9 @@ const nextBtn = document.getElementById('next')
 const topBtn = document.getElementById('top')
 const autoToggle = document.getElementById('autoscrollToggle')
 const toggleSidebarBtn = document.getElementById('toggleSidebar')
+const speedMinusBtn = document.getElementById('speedMinus')
+const speedPlusBtn = document.getElementById('speedPlus')
+const speedNum = document.getElementById('speedNum')
 
 const SIDEBAR_KEY = 'sidebarHidden'
 
@@ -113,10 +116,8 @@ function setSidebarHidden(hidden){
   localStorage.setItem(SIDEBAR_KEY, hidden? '1':'0')
 }
 if(toggleSidebarBtn){
-  toggleSidebarBtn.addEventListener('click', ()=>{
-    const hidden = document.documentElement.classList.contains('sidebar-hidden')
-    setSidebarHidden(!hidden)
-  })
+  // attach click handler; also set a simple inline fallback on the button in case JS fails
+  toggleSidebarBtn.addEventListener('click', ()=>{ const hidden = document.documentElement.classList.contains('sidebar-hidden'); setSidebarHidden(!hidden) })
 }
 try{ if(localStorage.getItem(SIDEBAR_KEY) === '1') setSidebarHidden(true) }catch(e){}
 
@@ -139,6 +140,10 @@ nextBtn.addEventListener('click', ()=>{ if(idx<songs.length-1) loadSong(idx+1) }
 topBtn.addEventListener('click', ()=>{ viewer.scrollTop = 0; scrollY = 0 })
 
 speedEl.addEventListener('input', ()=>{ speed = Number(speedEl.value); speedVal.textContent = speed; localStorage.setItem('scrollSpeed',speed) })
+// speed +/- and numeric input
+if(speedMinusBtn) speedMinusBtn.addEventListener('click', ()=>{ speed = Math.max(1, speed-10); speedEl.value = speed; speedNum.value = speed; speedVal.textContent = speed; localStorage.setItem('scrollSpeed',speed) })
+if(speedPlusBtn) speedPlusBtn.addEventListener('click', ()=>{ speed = Math.min(2000, speed+10); speedEl.value = speed; speedNum.value = speed; speedVal.textContent = speed; localStorage.setItem('scrollSpeed',speed) })
+if(speedNum) speedNum.addEventListener('change', ()=>{ const v = Number(speedNum.value)||1; speed = Math.max(1, Math.min(2000, v)); speedEl.value = speed; speedVal.textContent = speed; localStorage.setItem('scrollSpeed',speed) })
 fontEl.addEventListener('input', ()=>{ fontSize = Number(fontEl.value); fontVal.textContent = fontSize; viewer.style.fontSize = fontSize+'px'; localStorage.setItem('fontSize',fontSize) })
 
 // navigation keys

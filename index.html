@@ -12,7 +12,14 @@
     <div id="songList" class="song-list"></div>
     <div class="controls-compact">
       <label>Speed: <span id="speedVal">60</span> px/s</label>
-      <input id="speed" type="range" min="10" max="300" value="60">
+      <div class="speed-controls">
+        <button id="speedMinus">-</button>
+        <input id="speed" type="range" min="1" max="600" value="60">
+        <button id="speedPlus">+</button>
+      </div>
+      <div style="margin-top:6px">
+        <label>Set speed (px/s): <input id="speedNum" type="number" min="1" max="2000" value="60" style="width:80px"></label>
+      </div>
       <label>Font: <span id="fontVal">20</span>px</label>
       <input id="font" type="range" min="12" max="48" value="20">
     </div>
