@@ -21,6 +21,10 @@ html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Robo
 .editor-import{display:flex;gap:8px;align-items:center;margin-top:8px}
 .editor input[type=file]{width:auto;padding:2px}
 
+/* local notice */
+.local-notice{background:rgba(255,255,255,0.02);padding:8px;border-radius:6px;margin-bottom:6px;font-size:13px}
+.local-notice-actions{display:flex;gap:8px;margin-top:6px}
+.local-notice button{padding:6px 8px}
 button{background:var(--panel);color:var(--text);border:1px solid rgba(255,255,255,0.04);padding:6px 10px;border-radius:6px;cursor:pointer}
 input[type=range]{width:100%}
 label{font-size:13px}

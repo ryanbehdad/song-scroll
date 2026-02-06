@@ -33,17 +33,28 @@ const exportBtn = document.getElementById('exportJson')
 const importFile = document.getElementById('importFile')
 const clearLocalBtn = document.getElementById('clearLocal')
 
-// Try to load songs from localStorage first, otherwise from songs.txt
+// Always load bundled `songs.txt` by default. If local edits exist, show a notice so the user can opt in.
 const stored = localStorage.getItem('customSongs')
-if(stored){
-  try{ songs = JSON.parse(stored); renderSongList(); if(songs.length) loadSong(0) }catch(e){ console.warn('Invalid customSongs in localStorage') }
-} else {
-  fetch('songs.txt').then(r=>r.text()).then(txt=>{
-    songs = parseSongsTxt(txt)
-    renderSongList()
-    if(songs.length) loadSong(0)
-  })
-}
+fetch('songs.txt').then(r=>r.text()).then(txt=>{
+  songs = parseSongsTxt(txt)
+  renderSongList()
+  if(songs.length) loadSong(0)
+
+  if(stored){
+    try{
+      // Only show notice; do NOT automatically replace the list
+      const notice = document.getElementById('localNotice')
+      notice.hidden = false
+      const loadBtn = document.getElementById('loadLocal')
+      const clear2 = document.getElementById('clearLocal2')
+      loadBtn.addEventListener('click', ()=>{
+        try{ const parsed = JSON.parse(stored); if(Array.isArray(parsed)){ songs = parsed; saveLocalSongs(); renderSongList(); loadSong(0); populateEditor(0); notice.hidden=true } else alert('Local data is invalid') }
+        catch(e){ alert('Could not load local songs') }
+      })
+      clear2.addEventListener('click', ()=>{ if(confirm('Clear locally saved songs and reload originals?')){ localStorage.removeItem('customSongs'); notice.hidden=true; location.reload() } })
+    }catch(e){ console.warn('Error showing local notice', e) }
+  }
+})
 
 function parseSongsTxt(txt){
   const parts = txt.split(/\r?\n-{10,}\r?\n/).map(p=>p.trim()).filter(Boolean)
@@ -176,7 +187,7 @@ function parseToHtml(text){
     let escaped = escapeHtml(placeholderLine)
 
     // restore placeholders with safe chord spans
-    escaped = escaped.replace(/@@CHORD(\\d+)@@/g, (m, n) => {
+    escaped = escaped.replace(/@@CHORD(\d+)@@/g, (m, n) => {
       const c = chords[Number(n)] || ''
       return `<span class="chord">${escapeHtml(c)}</span>`
     })

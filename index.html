@@ -13,6 +13,15 @@
 
     <div class="editor">
       <h2>Editor</h2>
+
+      <div id="localNotice" class="local-notice" hidden>
+        <div>Local edits found — you have saved changes in your browser.</div>
+        <div class="local-notice-actions">
+          <button id="loadLocal">Load local edits</button>
+          <button id="clearLocal2">Clear Local</button>
+        </div>
+      </div>
+
       <input id="editTitle" placeholder="Title">
       <input id="editArtist" placeholder="Artist (optional)">
       <textarea id="editContent" rows="6" placeholder="Lyrics and chords here... Use [E] for chords"></textarea>
