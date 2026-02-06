@@ -62,7 +62,7 @@ DDUUD (for 0.5 bar: DD)
 
 6 times riff 
 
-(instead of the last 2 can play F, Dm )
+(instead of the last 2 can play [F]  Dm )
 
 We passed upon the [A] stair 
 We [A] spoke of was and [Dm] when 
@@ -223,7 +223,7 @@ Hey There Delilah (Plain White T's)
 
 Singing starts in [G] - Capo 2
 
-[C] [Em] [C] Em
+[C] [Em] [C] [Em]
 [C] Hey there, Delilah
 What's it [Em] like in New York City?
 I'm a [C] thousand miles away
@@ -339,10 +339,10 @@ This is not how I [G] am
 
 [A] I [C] have become [G] comfortably [D] numb
 
-Verse 2: [Bm] [A] [G Em] [Bm] X 3
+Verse 2: [Bm] [A] [G] [Em] [Bm] X 3
 [Bm] Okay [Okay, okay, okay)
 Just a little [A] pinprick
-There'll be no more [G Em] Aaaaaaah
+There'll be no more [G] [Em] Aaaaaaah
 But you may [Bm] feel a little sick
 
 [Bm] Can you stand up? [Stand up, stand up)
@@ -369,49 +369,62 @@ The child is grown, the [G] dream is gone
 
 House Of The Rising Sun (The Animals)
 
-Am, C, D, F, Am, E, Am, E
+[Am], [C]  [D]  [F] 
+[Am] [E] [Am] [E]
 
 There [Am] is a [C] house in [D] New Or[F]leans
 They [Am] call the [C] Ris[E]in' Sun [E]
 And it's [Am] been the [C] ruin of [D] many a poor [F] boy
 And [Am] God, I [E] know I'm [Am] one.
-C, D, F, Am, E, Am, E
+
+[C] [D] [F] [Am] 
+[E] [Am] [E]
 
 My [Am] mother [C] was a [D] tailor [F]
 She [Am] sewed my [C] new blue [E] jeans [E]
 My [Am] father [C] was a [D] gamblin' [F] man
 Down [Am] in [E] New Or[Am]leans.
-C, D, F, Am, E, Am, E
+
+[C] [D] [F] [Am] 
+[E] [Am] [E]
 
 Now, the [Am] only [C] thing a [D] gambler [F] needs
 Is a [Am] suitcase [C] and a [E] trunk [E]
 And the [Am] only [C] time that [D] he's satis[F]fied 
 Is [Am] when he's [E] on the [Am] drunk.
-C, D, F, Am, E, Am, E
+
+[C] [D] [F] [Am] 
+[E] [Am] [E]
 
 Oh, [Am] Mother, [C] tell your child [D] ren [F]
 Not to [Am] do what [C] I have [E] done [E]
 [Am] Spend your [C] lives in [D] sin and misery [F]
 In the [Am] house of the [E] risin' [Am] sun.
-C, D, F, Am, E, Am, E
+
+[C] [D] [F] [Am] 
+[E] [Am] [E]
 
 Well, I've got [Am] one foot  [C] on the [D] platform [F]
 The [Am] other [C] on the [E] train [E]
 I'm [Am] goin' [C] back to [D] New Orleans  [F]
 To [Am] wear that [E] ball and [Am] chain.
-C, D, F, Am, E, Am, E
+
+[C] [D] [F] [Am] 
+[E] [Am] [E]
 
 Well, [Am] there is a [C] house in [D] New Or [F]leans
 They [Am] call the [C] Ris[E]in' Sun [E]
 And it's [Am] been the [C] ruin of [D] many a poor [F] boy
 And [Am] God, I [E] know I'm [Am] one.
-C, D, F, Am, E, Am, E
+
+[C] [D] [F] [Am] 
+[E] [Am] [E]
 
 --------------------------------------------
 
 Hurt (Johnny Cash)
 
-Am [C] [D] Am [C] [D] Am
+[Am] [C] [D] Am [C] [D] [Am]
 
 I [C] hurt my [D] self to [Am] day  
 To [C] see if [D] I still [Am] feel  
@@ -462,8 +475,6 @@ If [Am] I could start again [F]
 A million [G] miles [G] away
 [Am] I would keep my[F]self
 [G] I would find a way
-
-(for + or AND part strum base note lightly)
 
 --------------------------------------------
 
@@ -521,6 +532,100 @@ A million [G] miles [G] away
 ترس از زمستون نیست،که آفتابش رو بومه 
 ای شرقی غم گین تو مثل کوه نوری نذارخورشیدمون بمیره 
 تو مثل روز پاکی،مث دریا مغروری نذار خاموشی جون بگیره  
+
+--------------------------------------------
+
+Black (Pearl Jam)
+
+[E] Sheets of empty [A] canvas
+Untouched [E] sheets of clay [A]
+Were [E] laid spread out be[A]fore me
+As her [E] body once did
+
+[E] All five ho[A]rizons
+Revolved [E] around her soul
+[A] As the earth to the sun
+[E] Now the air I [A] tasted and breathed
+Has [E] taken a turn
+
+[C] Oh and all I taught her was [Em] everything
+[C] Oh I know she gave me all that she [Em] wore
+
+And now my [D] bitter hands
+Chafe [C] beneath the clouds
+Of what was [Em]everything
+Oh the [D] pictures have
+All been [C] washed in black
+Tattooed every[Em]thing
+
+[E] I take a [A] walk outside
+I'm sur[E]rounded by
+Some [A] kids at play
+[E]I can feel their [A] laughter
+So [E] why do I sear
+
+[Em] Oh, and twisted thoughts that spin
+‘round my [Em] head
+I'm [C] spinning
+Oh, I'm spinning
+How quick the sun can, drop [Em] away
+
+And now my [D] bitter hands
+Cradle [C] broken glass
+Of what was every[Em]thing
+All the [D] pictures had
+All been [C] washed in black
+Tattooed every[Em]thing
+All the [D] love gone bad
+Turned my [C] world to black
+Tattooed all [D] I see
+All that [C] I am
+All I'll [Em] be
+Yeah
+
+I [Em] know someday you'll have a beautiful life
+I [D] know you'll be a star
+In some[C]body else's sky
+But [Em] why
+Why
+[D] Why can't it [C]be
+Why can't it be mine
+
+--------------------------------------------
+
+Good Riddance (Green Day)
+
+D DU UD
+
+[Intro]
+| [G]       | Cadd9 [D]  |
+| [G]       | Cadd9 [D]  |
+ 
+[Verse 1]
+[G] Another [G] turning point, a [Cadd9] fork stuck in the [D] road
+[G] Time grabs you [G] by the wrist, di[Cadd9]rects you where to [D] go
+[Em] So make the [D] best of this [Cadd9] test, and don't ask [G] why
+[Em] It's not a [D] question, but a [Cadd9] lesson learned in [G] time
+
+[Chorus]
+It's [Em] something un[G]predictable
+But [Em] in the end, it's [G] right
+I [Em] hope you had the [D] time of your [G] life
+
+[Interlude]
+|(G)      | Cadd9 [D]  |
+| [G]       | Cadd9 [D]  |
+ 
+[Verse 2]
+[G]So take the photographs and [Cadd9] still frames in your [D] mind
+[G] Hang it on a shelf in [Cadd9] good health and good [D] time
+[Em] Tattoos of [D] memories, and [Cadd9] dead skin on [G] trial
+[Em] For what it's [D] worth, it was [Cadd9] worth all the [G] while
+
+It's [Em] something unpre[G]dictable
+But [Em] in the end, it's [G] right
+I [Em] hope you had the [D] time of your [G] life
+X 3
 
 --------------------------------------------
 
@@ -714,100 +819,6 @@ There's a bad moon on the rise
 Don't come around tonight
 Well it's bound to take your life
 There's a bad moon on the rise
-
---------------------------------------------
-
-Black (Pearl Jam)
-
-[E] Sheets of empty [A] canvas
-Untouched [E] sheets of clay [A]
-Were [E] laid spread out be[A]fore me
-As her [E] body once did
-
-[E] All five ho[A]rizons
-Revolved [E] around her soul
-[A] As the earth to the sun
-[E] Now the air I [A] tasted and breathed
-Has [E] taken a turn
-
-[C] Oh and all I taught her was [Em] everything
-[C] Oh I know she gave me all that she [Em] wore
-
-And now my [D] bitter hands
-Chafe [C] beneath the clouds
-Of what was [Em]everything
-Oh the [D] pictures have
-All been [C] washed in black
-Tattooed every[Em]thing
-
-[E] I take a [A] walk outside
-I'm sur[E]rounded by
-Some [A] kids at play
-[E]I can feel their [A] laughter
-So [E] why do I sear
-
-[Em] Oh, and twisted thoughts that spin
-‘round my [Em] head
-I'm [C] spinning
-Oh, I'm spinning
-How quick the sun can, drop [Em] away
-
-And now my [D] bitter hands
-Cradle [C] broken glass
-Of what was every[Em]thing
-All the [D] pictures had
-All been [C] washed in black
-Tattooed every[Em]thing
-All the [D] love gone bad
-Turned my [C] world to black
-Tattooed all [D] I see
-All that [C] I am
-All I'll [Em] be
-Yeah
-
-I [Em] know someday you'll have a beautiful life
-I [D] know you'll be a star
-In some[C]body else's sky
-But [Em] why
-Why
-[D] Why can't it [C]be
-Why can't it be mine
-
---------------------------------------------
-
-Good Riddance (Green Day)
-
-D DU UD
-
-[Intro]
-| [G]       | Cadd9 [D]  |
-| [G]       | Cadd9 [D]  |
- 
-[Verse 1]
-[G] Another [G] turning point, a [Cadd9] fork stuck in the [D] road
-[G] Time grabs you [G] by the wrist, di[Cadd9]rects you where to [D] go
-[Em] So make the [D] best of this [Cadd9] test, and don't ask [G] why
-[Em] It's not a [D] question, but a [Cadd9] lesson learned in [G] time
-
-[Chorus]
-It's [Em] something un[G]predictable
-But [Em] in the end, it's [G] right
-I [Em] hope you had the [D] time of your [G] life
-
-[Interlude]
-|(G)      | Cadd9 [D]  |
-| [G]       | Cadd9 [D]  |
- 
-[Verse 2]
-[G]So take the photographs and [Cadd9] still frames in your [D] mind
-[G] Hang it on a shelf in [Cadd9] good health and good [D] time
-[Em] Tattoos of [D] memories, and [Cadd9] dead skin on [G] trial
-[Em] For what it's [D] worth, it was [Cadd9] worth all the [G] while
-
-It's [Em] something unpre[G]dictable
-But [Em] in the end, it's [G] right
-I [Em] hope you had the [D] time of your [G] life
-X 3
 
 --------------------------------------------
 
