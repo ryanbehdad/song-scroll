@@ -2,21 +2,23 @@
 
 This is a tiny static web app to view and auto-scroll lyric+chord text. It can be hosted on GitHub Pages for free.
 
-Files added:
+Files included
 
-- [index.html](index.html) — main UI
-- [styles.css](styles.css) — styles
-- [app.js](app.js) — client logic
-- [songs.json](songs.json) — song data (add your songs here)
+- `index.html` — main UI
+- `styles.css` — styles
+- `app.js` — client logic
+- `songs.txt` — bundled song list (text file with songs separated by a long dashed line)
 
 How songs are formatted
-- Each song is an entry in `songs.json` with `title`, optional `artist`, and `content` (string).\n- Use square brackets for chords, e.g. `[E] There's something happening here`.
+- Songs are stored in `songs.txt` separated by a dashed line (--------------------------------------------).
+- The first non-empty line of each section is used as the song title; the second short line is used as the artist when present.
+- Use square brackets for chords, e.g. `[E] There's something happening here`.
 
 Deploy to GitHub Pages
 
 1. Create a new GitHub repo (e.g., `song-scroll`) and push these files to the `main` branch.
 
-```
+```bash
 git init
 git add .
 git commit -m "Initial song-scroll site"
@@ -25,19 +27,17 @@ git remote add origin https://github.com/<your-user>/<your-repo>.git
 git push -u origin main
 ```
 
-2. In the repository Settings > Pages, set source to `main` branch and `/ (root)` folder. Wait a minute and your site will be available at `https://<your-user>.github.io/<your-repo>/`.
+2. In the repository Settings → Pages, set Source to branch `main` and folder `/ (root)`.
 
-Tips
-- To add songs, edit `songs.json` and push. Each `content` string supports newlines and chord markup in `[]`.
+Features / Tips
+- The sidebar contains an **Editor** to Add, Update, or Delete songs. Edits are saved to your browser's `localStorage`.
+- Use **Export JSON** to download or copy the current song list as `songs.json` (useful to add to the repo for sharing across devices).
+- Use **Import** to load a previously exported `songs.json` file.
+- Use **Clear Local** to remove locally saved songs and reload the original `songs.txt` bundle.
 - Adjust `Speed` and `Font` in the sidebar; values persist in `localStorage`.
-- Use spacebar to toggle play/pause, arrow keys to navigate songs.
+- Keyboard: space toggles Play/Pause; arrow keys navigate songs and scroll.
 
-Editor (new)
-- There's an **Editor** in the sidebar where you can Add, Update, or Delete songs. Changes are saved to your browser's `localStorage` so they persist on your device.
-- Use **Export JSON** to download or copy your current song list as `songs.json` (useful if you want to commit the changes to the repo).
-- Use **Import** to load a saved `songs.json` file.
-- Use **Clear Local** to remove locally saved songs and reload the original `songs.txt` file that's bundled with the site.
+Optional enhancements
+- Add server-side or automated builds to store each song as a separate file and generate a manifest automatically.
+- Add a small admin form that posts edits to a backend (requires a server or GitHub Actions to commit changes).
 
-If you want, I can:
-- Add a small admin form to add songs from the browser.
-- Convert to individual song files and auto-generate a manifest.
