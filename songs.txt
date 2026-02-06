@@ -1,7 +1,8 @@
 For What It's Worth (Buffalo Springfield)
 
 D- DU -U DU
-E   A   E   A (instead of A can play A7)
+
+[E] [A] [E] [A] (instead of [A] can play [A7])
 
 [E] There's something happening here [A]
 But what it [E] is ain't exactly clear [A]
@@ -11,7 +12,8 @@ Telling [E] me I got to beware [A]
 It's time we [E] stop
 Children, what's [D] that sound?
 [A] Everybody look, what's going [C] down?
-E   A   E   A
+
+[E] [A] [E] [A]
 
 [E] There's battle lines being [A] drawn
 Nobody's [E] right if everybody's [A] wrong
@@ -21,7 +23,7 @@ Getting [E] so much resistance [A] from behind
 It's time we [E] stop
 Hey, [D] what's that sound?
 [A] Everybody look, what's going down?
-E   A   E   A
+[E] [A] [E] [A]
 
 [E] What a field day for the [A] heat (Ooh ooh ooh)
 A thousand people in the street (Ooh ooh ooh)
@@ -31,6 +33,8 @@ Mostly say, "Hooray for our side" (Ooh ooh ooh)
 It's time we stop
 Hey, what's that sound?
 Everybody look, what's going down?
+
+[E] [A] [E] [A]
 
 Paranoia strikes deep
 Into your life it will creep
@@ -56,7 +60,9 @@ The Man Who Sold the World (David Bowie)
 
 DDUUD (for 0.5 bar: DD)
 
-6 times riff (instead of the last 2 can play F, Dm )
+6 times riff 
+
+(instead of the last 2 can play F, Dm )
 
 We passed upon the [A] stair 
 We [A] spoke of was and [Dm] when 
@@ -69,10 +75,10 @@ A [Dm] long, long time [C] ago" [C]
 
 Oh no [C], not me [F] 
 I never [C#] lost control [F] 
-You're face [C x 1] to face [F x 1] 
-With the man [C# x 1] who sold the world 
+You're face [C] to face [F] 
+With the man [C#] who sold the world 
 
-Riff ([A] [Dm] )
+Riff ([A] [Dm])
 
 I laughed and shook his [A] hand 
 And [A] made my way back [Dm] home 
@@ -90,7 +96,6 @@ With the man [C#] who sold the world [A][Dm]} X 2
 
 Riff ([A] [Dm])
 
-
 --------------------------------------------
 
 We’re Going to Be Friends (The White Stripes)
@@ -103,6 +108,7 @@ We’re Going to Be Friends (The White Stripes)
 [Cadd9] we are gonna be
 [G] friends X 2
 
+
 [G] Walk with me, Suzy Lee
 [G] Through the park and by the tree
 [C] We will rest upon the ground
@@ -110,7 +116,8 @@ We’re Going to Be Friends (The White Stripes)
 [D] safely walk to
 [Cadd9] school without a
 [G] sound X 2
- 
+
+
 [G] Well, here we are, no one else
 [G] We walked to school all by ourselves
 [C] There's dirt on our uniforms
@@ -118,7 +125,8 @@ We’re Going to Be Friends (The White Stripes)
 [D] We clean up and
 [Cadd9] now it's time to
 [G] learn X 2
- 
+
+
 [G] Numbers, letters, learn to spell
 [G] Nouns and books and show and tell
 [C] At playtime we will throw the ball
@@ -127,6 +135,7 @@ We’re Going to Be Friends (The White Stripes)
 [Cadd9] height against the
 [G] wall X 2
  
+
 [C] We don't notice any
 [G] time pass
 [C] we don't notice any
@@ -135,7 +144,7 @@ We’re Going to Be Friends (The White Stripes)
 [C] Teacher thinks that I sound funny,
 [D] But she likes the way you sing
  
-Verse 5
+
 [G] Tonight I'll dream, while I'm in bed
 [G] When silly thoughts go through my head
 [C] About the bugs and alphabet
@@ -157,159 +166,137 @@ Verse 5
 
 Wonderful Tonight (Eric Clapton)
 
-G, D/F# C D 
+[G], [D/F#] [C] [D] 
 D D DU DU or 64342343
 
 
-G It's late in the D/F# evening
-C She's wondering what D clothes to wear
-G She puts on her D/F#  makeup
-C And brushes her D long black hair
-C And then she D asks me
-G "Do I D/F# look all Em right?"
-And I say, C "Yes, you look D wonderful to-G-night"
-G, D/F# C D 
+[G] It's late in the [D/F#] evening
+[C] She's wondering what [D] clothes to wear
 
-G (We) go to a D/F# party
-C (And) everyone D turns to see
-G This beautiful lady D/F# 
-Who's C walking D around with me
-C And then she D asks me
-G "Do you D/F# feel all Em right?"
-And I say, C "Yes, I feel D wonderful tonight" GG
+[G] She puts on her [D/F#]  makeup
+[C] And brushes her [D] long black hair
 
-I feel C wonderful D because I see 
-the G love light D/F# in your Em eyes
-Then the C wonder of it D all
-is that you C just don't real-D-ize
-How much I G love you
-G, D/F# C D X 2
+[C] And then she [D] asks me
+[G] "Do I [D/F#] look all [Em] right?"
 
-G It's time to go D/F# home now
-C And I've got an aching D head
-G So I give her the car D/F# keys
-C (And) she helps me to D bed
-C And then I tell D her
-G As I D/F# turn out the Em light
-I say, "My C darling, you were D wonderful to-G-night" Em 
-"Oh, my C darling, you were D wonderful to-G-night"
+And I say, [C] "Yes, you look [D] wonderful to-[G]-night"
+
+[G], [D/F#] [C] [D] 
+
+[G] (We) go to a [D/F#] party
+[C] (And) everyone [D] turns to see
+
+[G] This beautiful lady [D/F#] 
+Who's [C] walking [D] around with me
+
+[C] And then she [D] asks me
+[G] "Do you [D/F#] feel all [Em] right?"
+
+And I say, [C] "Yes, I feel [D] wonderful tonight" 
+
+[G][G]
+
+I feel [C] wonderful [D] because I see 
+the [G] love light [D/F#] in your [Em] eyes
+Then the [C] wonder of it [D] all
+is that you [C] just don't real-[D]-ize
+How much I [G] love you
+
+[G] [D/F#] [C] [D]
+
+[G] [D/F#] [C] [D]
+
+[G] It's time to go [D/F#] home now
+[C] And I've got an aching [D] head
+
+[G] So I give her the car [D/F#] keys
+[C] (And) she helps me to [D] bed
+[C] And then I tell [D] her
+
+[G] As I [D/F#] turn out the [Em] light
+I say, "My [C] darling, you were [D] wonderful to-[G]-night" [Em] 
+"Oh, my [C] darling, you were [D] wonderful to-[G]-night"
 
 --------------------------------------------
 
 Hey There Delilah (Plain White T's) 
 
-Singing starts in G - Capo 2
+Singing starts in [G] - Capo 2
 
-C Em C Em
-C Hey there, Delilah
-What's it Em like in New York City?
-I'm a C thousand miles away
+[C] [Em] [C] Em
+[C] Hey there, Delilah
+What's it [Em] like in New York City?
+I'm a [C] thousand miles away
 But girl, to-Em-night, you look so pretty
 Yes, you Am do Am/G (only the fourth5)
-F Times Square can't G shine as bright as Am you
-I swear it's G true
+[F] Times Square can't [G] shine as bright as Am you
+I swear it's [G] true
 
-C Hey there, Delilah
-Don't you Em worry about the distance
-I'm right C there if you get lonely
-Give this Em song another listen
-Close your Am eyes G 
-F Listen to my G voice, it's my Am disguise
-I'm by your G side
+[C] Hey there, Delilah
+Don't you [Em] worry about the distance
+I'm right [C] there if you get lonely
+Give this [Em] song another listen
+Close your Am eyes [G] 
+F Listen to my [G] voice, it's my Am disguise
+I'm by your [G] side
 
-C Oh, it's what you do to Am me
-C Oh, it's what you do to Am me
-C Oh, it's what you do to Am me
-C Oh, it's what you do to Am me
-What you do to C me
+[C] Oh, it's what you do to Am me
+[C] Oh, it's what you do to Am me
+[C] Oh, it's what you do to Am me
+[C] Oh, it's what you do to Am me
+What you do to [C] me
 
-C Hey there, Delilah
-I know Em times are getting hard
-But just C believe me, girl
-Someday I'll pay the Em bills with this guitar
-We'll have it Am good G 
-F We'll have the G life we knew we Am would
-My word is G good
+[C] Hey there, Delilah
+I know [Em] times are getting hard
+But just [C] believe me, girl
+Someday I'll pay the [Em] bills with this guitar
+We'll have it Am good [G] 
+[F] We'll have the [G] life we knew we Am would
+My word is [G] good
 
-C Hey there, Delilah
-I've got Em so much left to say
-If every C simple song I wrote to you
-Would Em take your breath away
-I'd write it Am all G 
-F Even more in G love with me you'd Am fall
-We'd have it G all
+[C] Hey there, Delilah
+I've got [Em] so much left to say
+If every [C] simple song I wrote to you
+Would [Em] take your breath away
+I'd write it Am all [G] 
+[F] Even more in [G] love with me you'd Am fall
+We'd have it [G] all
 
-C Oh, it's what you do to Am me
-C Oh, it's what you do to Am me
-C Oh, it's what you do to Am me
-C Oh, it's what you do to Am me
-What you do to C me
+[C] Oh, it's what you do to Am me
+[C] Oh, it's what you do to Am me
+[C] Oh, it's what you do to Am me
+[C] Oh, it's what you do to Am me
+What you do to [C] me
 
-A F thousand miles seems pretty far
-But G they've got planes, and trains, and cars
-I'd C walk to you if I had no other Am way
-Our F friends would all make fun of us
-And G we'll just laugh along because
-We C know that none of them have felt this Am way
+A [F] thousand miles seems pretty far
+But [G] they've got planes, and trains, and cars
+I'd [C] walk to you if I had no other Am way
+Our [F] friends would all make fun of us
+And [G] we'll just laugh along because
+We [C] know that none of them have felt this Am way
 De-F-lilah, I can promise you
-That G by the time we get through
+That [G] by the time we get through
 The Am world will never, ever be the same
-And you're to G blame ee
+And you're to [G] blame ee
 
-C Hey there, Delilah
-You be Em good and don't you miss me
-Two more C years and you'll be done with school
-And Em I'll be making history 
-like I Am do G 
-F You'll know it's G all because of Am you
-F We can do what-G-ever we want Am to
-F Hey there, De-G-lilah, here's to Am you
-This one's for G you
+[C] Hey there, Delilah
+You be [Em] good and don't you miss me
+Two more [C] years and you'll be done with school
+And [Em] I'll be making history 
+like I Am do [G] 
+[F] You'll know it's [G] all because of Am you
+[F] We can do what-G-ever we want Am to
+[F] Hey there, De-G-lilah, here's to Am you
+This one's for [G] you
 
-C Oh, it's what you do to Am me
-C Oh, it's what you do to Am me
-C Oh, it's what you do to Am me
-C Oh, it's what you do to Am me
-What you do to C me
+[C] Oh, it's what you do to Am me
+[C] Oh, it's what you do to Am me
+[C] Oh, it's what you do to Am me
+[C] Oh, it's what you do to Am me
+What you do to [C] me
 
-C Am x 3
-C C 
-
---------------------------------------------
-
-Good Riddance (Green Day)
-
-D DU UD
-
-[Intro]
-| G       | Cadd9 D  |
-| G       | Cadd9 D  |
- 
-[Verse 1]
-[G] Another [G] turning point, a [Cadd9] fork stuck in the [D] road
-[G] Time grabs you [G] by the wrist, di[Cadd9]rects you where to [D] go
-[Em] So make the [D] best of this [Cadd9] test, and don't ask [G] why
-[Em] It's not a [D] question, but a [Cadd9] lesson learned in [G] time
-
-[Chorus]
-It's [Em] something un[G]predictable
-But [Em] in the end, it's [G] right
-I [Em] hope you had the [D] time of your [G] life
-
-[Interlude]
-|(G)      | Cadd9 D  |
-| G       | Cadd9 D  |
- 
-[Verse 2]
-[G]So take the photographs and [Cadd9] still frames in your [D] mind
-[G] Hang it on a shelf in [Cadd9] good health and good [D] time
-[Em] Tattoos of [D] memories, and [Cadd9] dead skin on [G] trial
-[Em] For what it's [D] worth, it was [Cadd9] worth all the [G] while
-
-It's [Em] something unpre[G]dictable
-But [Em] in the end, it's [G] right
-I [Em] hope you had the [D] time of your [G] life
-X 3
+[C] Am x 3
+[C] [C] 
 
 --------------------------------------------
 
@@ -424,7 +411,7 @@ C, D, F, Am, E, Am, E
 
 Hurt (Johnny Cash)
 
-Am C D Am C D Am
+Am [C] [D] Am [C] [D] Am
 
 I [C] hurt my [D] self to [Am] day  
 To [C] see if [D] I still [Am] feel  
@@ -480,7 +467,7 @@ A million [G] miles [G] away
 
 --------------------------------------------
 
-شرقی غمگین - فریدون فرخ زاد
+شرقی غمگین  (فریدون فرخ زاد)
 
 (thumb, 3 lower fingers. Can alternate thumb between 5th and 4th strings) 
 
@@ -541,8 +528,8 @@ Wonderwall (Oasis)
 
 Capo:2
 
-(D D D DU)(DUD D DU)
-(DUD D DU)( U UDUDU)
+(D [D] D DU)(DUD [D] DU)
+(DUD [D] DU)( U UDUDU)
 
 [Intro]
 [Em] [G] [D] [A7sus4]  (x3)
@@ -617,46 +604,46 @@ And [Em]after [C] all [Em]
 
 + ورس اول +
 
-( #F ) قصه هزار و یک شب ( G ) تو دلم کاشتی
+( [#F] ) قصه هزار و یک شب ( [G] ) تو دلم کاشتی
 
-( A ) تو چی آوردی که جاش ( G ) قلبمو ( #F ) برداشتی
+( [A] ) تو چی آوردی که جاش ( [G] ) قلبمو ( [#F] ) برداشتی
 
-( #F ) مثل پاییز اومدی ( G ) در به درم کردی
+( [#F] ) مثل پاییز اومدی ( [G] ) در به درم کردی
 
-( A ) اومدی چشمه بشی ( G ) تشنه ترم ( #F ) کردی
+( [A] ) اومدی چشمه بشی ( [G] ) تشنه ترم ( [#F] ) کردی
 
 + پری کراس +
 
-( A ) دعا کن دلم ( G ) آروم بگیره
+( [A] ) دعا کن دلم ( [G] ) آروم بگیره
 
-( Bm ) دعام کن اگه منو ( A ) یادت نمیره
+( Bm ) دعام کن اگه منو ( [A] ) یادت نمیره
 
-( A ) من آسون نرسیدم ( G ) به تو
+( [A] ) من آسون نرسیدم ( [G] ) به تو
 
-( Bm ) حیفه دنیا تو رو ازم ( A ) آسون بگیره
+( Bm ) حیفه دنیا تو رو ازم ( [A] ) آسون بگیره
 
-( A ) قصه ی هزار و یک ( G ) شب واسه من خوندی
+( [A] ) قصه ی هزار و یک ( [G] ) شب واسه من خوندی
 
-( A ) سمت چشمای خودت ( G ) قبلمو ( #F ) چرخوندی
+( [A] ) سمت چشمای خودت ( [G] ) قبلمو ( [#F] ) چرخوندی
 
-( #F ) یادته صدتا ترانه ( G ) با چشات ساختی
-( A ) اومدم قصه بشم ( G ) قافیه رو ( #F ) باختی
+( [#F] ) یادته صدتا ترانه ( [G] ) با چشات ساختی
+ [A]  اومدم قصه بشم ( [G] ) قافیه رو ( [#F] ) باختی
 
 + ورس دوم +
 
-( F#m ) فانوس ( Em ) چشاتو ( #F ) به تن شعله‌ی ( Bm ) من کن
+( F#m ) فانوس ( [Em] ) چشاتو ( [#F] ) به تن شعله‌ی ( Bm ) من کن
 
-( G ) پیراهن ( Em ) آغوشمو ( #F ) تن کن
+( [G] ) پیراهن ( [Em] ) آغوشمو ([#F] ) تن کن
 
-( #F ) از کوچه‌ی ( Em ) معشوق ( #F ) اگه ای باد ( Bm ) گذشتی
+([#F] ) از کوچه‌ی ( [Em] ) معشوق ([#F] ) اگه ای باد ( Bm ) گذشتی
 
-( Em ) از حال دلم ( G ) یارو ( #F ) خبر کن
+[Em] از حال دلم [G] یارو ([#F] ) خبر کن
 
 --------------------------------------------
 
 Last Kiss (Pearl Jam)
 
-G Em C D
+[G] [Em] [C] [D]
 
 Oh, [G] where oh where can my [Em] baby be?
 The [C] Lord took her aw[D]ay from me
@@ -692,7 +679,11 @@ Oh, where oh where can my baby be?
 The Lord took her away from me
 She's gone to heaven, so I got to be good
 So I can see my baby when I leave this world.
-Bad Moon Rising  - 	Creedence Clearwater Revival and Creedence Clearwater Revived
+
+--------------------------------------------
+
+Bad Moon Rising  (Creedence Clearwater Revival and Creedence Clearwater Revived)
+
 I see the bad moon a-risin'
 I see trouble on the way
 I see earthquakes and lightnin'
@@ -781,6 +772,42 @@ But [Em] why
 Why
 [D] Why can't it [C]be
 Why can't it be mine
+
+--------------------------------------------
+
+Good Riddance (Green Day)
+
+D DU UD
+
+[Intro]
+| [G]       | Cadd9 [D]  |
+| [G]       | Cadd9 [D]  |
+ 
+[Verse 1]
+[G] Another [G] turning point, a [Cadd9] fork stuck in the [D] road
+[G] Time grabs you [G] by the wrist, di[Cadd9]rects you where to [D] go
+[Em] So make the [D] best of this [Cadd9] test, and don't ask [G] why
+[Em] It's not a [D] question, but a [Cadd9] lesson learned in [G] time
+
+[Chorus]
+It's [Em] something un[G]predictable
+But [Em] in the end, it's [G] right
+I [Em] hope you had the [D] time of your [G] life
+
+[Interlude]
+|(G)      | Cadd9 [D]  |
+| [G]       | Cadd9 [D]  |
+ 
+[Verse 2]
+[G]So take the photographs and [Cadd9] still frames in your [D] mind
+[G] Hang it on a shelf in [Cadd9] good health and good [D] time
+[Em] Tattoos of [D] memories, and [Cadd9] dead skin on [G] trial
+[Em] For what it's [D] worth, it was [Cadd9] worth all the [G] while
+
+It's [Em] something unpre[G]dictable
+But [Em] in the end, it's [G] right
+I [Em] hope you had the [D] time of your [G] life
+X 3
 
 --------------------------------------------
 
