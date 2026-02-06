@@ -67,7 +67,7 @@ function defaultSettings() {
     idx: 0,
 
     mode: 'smooth',          // smooth | step
-    speedPx: 20,             // px/s
+    speedPx: 60,             // px/s
     stepEvery: 1.0,          // seconds
     stepSize: 'line',        // line | 2line | page
 
@@ -454,9 +454,9 @@ function nextSong() {
 /* ---------------- settings handlers ---------------- */
 
 function setSpeed(v) {
-  settings.speedPx = clamp(Number(v) || 20, 5, 40);
+  settings.speedPx = clamp(Number(v) || 60, 5, 2000);
   speedLabelEl.textContent = String(settings.speedPx);
-  speedRangeEl.value = String(clamp(settings.speedPx, 5, 40));
+  speedRangeEl.value = String(clamp(settings.speedPx, 5, 600));
   saveSettings();
 }
 
