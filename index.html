@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Song Scroll</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <h1>Song Scroll</h1>
+    <div id="songList" class="song-list"></div>
+    <div class="controls-compact">
+      <label>Speed: <span id="speedVal">60</span> px/s</label>
+      <input id="speed" type="range" min="10" max="300" value="60">
+      <label>Font: <span id="fontVal">20</span>px</label>
+      <input id="font" type="range" min="12" max="48" value="20">
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="toolbar">
+      <button id="prev">⟨ Prev</button>
+      <button id="play">▶ Play</button>
+      <button id="pause">⏸ Pause</button>
+      <button id="next">Next ⟩</button>
+      <label class="toggle"><input id="autoscrollToggle" type="checkbox" checked> Auto-scroll</label>
+      <button id="top">Top</button>
+    </div>
+
+    <div id="viewer" class="viewer" tabindex="0"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
