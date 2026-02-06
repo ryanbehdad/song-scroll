@@ -27,7 +27,7 @@
 
   <main class="main">
     <div class="toolbar">
-      <button id="toggleSidebar">☰</button>
+      <button id="toggleSidebar" onclick="(function(){var h=document.documentElement.classList;h.toggle('sidebar-hidden');localStorage.setItem('sidebarHidden', document.documentElement.classList.contains('sidebar-hidden')? '1':'0');})()">☰</button>
       <button id="prev">⟨ Prev</button>
       <button id="play">▶ Play</button>
       <button id="pause">⏸ Pause</button>

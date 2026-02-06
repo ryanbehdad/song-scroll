@@ -139,7 +139,7 @@ prevBtn.addEventListener('click', ()=>{ if(idx>0) loadSong(idx-1) })
 nextBtn.addEventListener('click', ()=>{ if(idx<songs.length-1) loadSong(idx+1) })
 topBtn.addEventListener('click', ()=>{ viewer.scrollTop = 0; scrollY = 0 })
 
-speedEl.addEventListener('input', ()=>{ speed = Number(speedEl.value); speedVal.textContent = speed; localStorage.setItem('scrollSpeed',speed) })
+speedEl.addEventListener('input', ()=>{ speed = Number(speedEl.value); speedVal.textContent = speed; if(speedNum) speedNum.value = speed; localStorage.setItem('scrollSpeed',speed) })
 // speed +/- and numeric input
 if(speedMinusBtn) speedMinusBtn.addEventListener('click', ()=>{ speed = Math.max(1, speed-10); speedEl.value = speed; speedNum.value = speed; speedVal.textContent = speed; localStorage.setItem('scrollSpeed',speed) })
 if(speedPlusBtn) speedPlusBtn.addEventListener('click', ()=>{ speed = Math.min(2000, speed+10); speedEl.value = speed; speedNum.value = speed; speedVal.textContent = speed; localStorage.setItem('scrollSpeed',speed) })
