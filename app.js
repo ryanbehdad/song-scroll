@@ -10,6 +10,10 @@ const prevBtn = document.getElementById('prev')
 const nextBtn = document.getElementById('next')
 const topBtn = document.getElementById('top')
 const autoToggle = document.getElementById('autoscrollToggle')
+const toggleSidebarBtn = document.getElementById('toggleSidebar')
+
+// sidebar hide state key
+const SIDEBAR_KEY = 'sidebarHidden'
 
 let songs = []
 let idx = 0
@@ -80,6 +84,26 @@ function parseSongsTxt(txt){
 
 // Editor actions
 function saveLocalSongs(){ localStorage.setItem('customSongs', JSON.stringify(songs)) }
+
+// Sidebar toggle logic
+function setSidebarHidden(hidden){
+  if(hidden) document.documentElement.classList.add('sidebar-hidden')
+  else document.documentElement.classList.remove('sidebar-hidden')
+  localStorage.setItem(SIDEBAR_KEY, hidden? '1':'0')
+}
+
+if(toggleSidebarBtn){
+  toggleSidebarBtn.addEventListener('click', ()=>{
+    const hidden = document.documentElement.classList.contains('sidebar-hidden')
+    setSidebarHidden(!hidden)
+  })
+}
+
+// apply saved sidebar state
+try{
+  const savedSidebar = localStorage.getItem(SIDEBAR_KEY)
+  if(savedSidebar === '1') setSidebarHidden(true)
+}catch(e){}
 
 addSongBtn.addEventListener('click', ()=>{
   const t = editTitle.value.trim() || 'Untitled'

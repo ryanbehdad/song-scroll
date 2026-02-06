@@ -2,7 +2,11 @@
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:var(--text);background:linear-gradient(180deg,#071018 0%,#081323 100%)}
 .sidebar{width:300px;padding:18px;background:rgba(0,0,0,0.2);backdrop-filter:blur(6px);height:100vh;float:left}
-.main{margin-left:300px;padding:12px}
+.main{margin-left:300px;padding:12px;transition:margin-left 220ms ease}
+
+/* Hidden sidebar state */
+.sidebar-hidden .sidebar{transform:translateX(-110%);transition:transform 220ms ease}
+.sidebar-hidden .main{margin-left:0}
 .song-list{margin-top:8px;display:flex;flex-direction:column;gap:6px;max-height:60vh;overflow:auto}
 .song-item{padding:8px;border-radius:6px;background:rgba(255,255,255,0.03);cursor:pointer}
 .song-item.active{outline:2px solid rgba(255,255,255,0.03);background:linear-gradient(90deg,rgba(255,255,255,0.02),rgba(0,0,0,0.06))}
@@ -30,3 +34,11 @@ input[type=range]{width:100%}
 label{font-size:13px}
 
 @media (max-width:800px){.sidebar{position:fixed;left:0;top:0;bottom:0;z-index:10;width:260px}.main{margin-left:260px}}
+
+/* On narrow screens start with sidebar visible but allow toggle to hide it */
+@media (max-width:800px){
+	.sidebar{width:80vw}
+	.main{margin-left:0;padding:12px}
+	.sidebar-hidden .sidebar{transform:translateX(-110%)}
+	.sidebar-hidden .main{margin-left:0}
+}
