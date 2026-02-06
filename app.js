@@ -67,7 +67,7 @@ function defaultSettings() {
     idx: 0,
 
     mode: 'smooth',          // smooth | step
-    speedPx: 60,             // px/s
+    speedPx: 20,             // px/s
     stepEvery: 1.0,          // seconds
     stepSize: 'line',        // line | 2line | page
 
