@@ -30,10 +30,8 @@ git push -u origin main
 2. In the repository Settings → Pages, set Source to branch `main` and folder `/ (root)`.
 
 Features / Tips
-- The sidebar contains an **Editor** to Add, Update, or Delete songs. Edits are saved to your browser's `localStorage`.
-- Use **Export JSON** to download or copy the current song list as `songs.json` (useful to add to the repo for sharing across devices).
-- Use **Import** to load a previously exported `songs.json` file.
-- Use **Clear Local** to remove locally saved songs and reload the original `songs.txt` bundle.
+- The sidebar shows the list of songs parsed from `songs.txt`.
+- To update or add songs, edit `songs.txt` locally and push changes to the repository (or export/replace the file on GitHub).
 - Adjust `Speed` and `Font` in the sidebar; values persist in `localStorage`.
 - Keyboard: space toggles Play/Pause; arrow keys navigate songs and scroll.
 
