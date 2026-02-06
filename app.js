@@ -42,9 +42,23 @@ function renderSongList(){
 function parseToHtml(text){
   const lines = text.split(/\n/)
   return lines.map(l=>{
-    // wrap chords like [E] as span
-    const html = l.replace(/\[([^\]]+)\]/g, '<span class="chord">$1</span>')
-    return `<div class="line">${escapeHtml(html)}</div>`
+    // Replace chords with placeholders, escape the line, then restore chord spans
+    const chords = []
+    const placeholderLine = l.replace(/\[([^\]]+)\]/g, (m, g) => {
+      const id = chords.length
+      chords.push(g)
+      return `@@CHORD${id}@@`
+    })
+
+    let escaped = escapeHtml(placeholderLine)
+
+    // restore placeholders with safe chord spans
+    escaped = escaped.replace(/@@CHORD(\\d+)@@/g, (m, n) => {
+      const c = chords[Number(n)] || ''
+      return `<span class="chord">${escapeHtml(c)}</span>`
+    })
+
+    return `<div class="line">${escaped}</div>`
   }).join('')
 }
 
