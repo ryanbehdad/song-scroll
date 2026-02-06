@@ -32,6 +32,12 @@ Tips
 - Adjust `Speed` and `Font` in the sidebar; values persist in `localStorage`.
 - Use spacebar to toggle play/pause, arrow keys to navigate songs.
 
+Editor (new)
+- There's an **Editor** in the sidebar where you can Add, Update, or Delete songs. Changes are saved to your browser's `localStorage` so they persist on your device.
+- Use **Export JSON** to download or copy your current song list as `songs.json` (useful if you want to commit the changes to the repo).
+- Use **Import** to load a saved `songs.json` file.
+- Use **Clear Local** to remove locally saved songs and reload the original `songs.txt` file that's bundled with the site.
+
 If you want, I can:
 - Add a small admin form to add songs from the browser.
 - Convert to individual song files and auto-generate a manifest.
