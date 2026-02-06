@@ -10,6 +10,24 @@
   <aside class="sidebar">
     <h1>Song Scroll</h1>
     <div id="songList" class="song-list"></div>
+
+    <div class="editor">
+      <h2>Editor</h2>
+      <input id="editTitle" placeholder="Title">
+      <input id="editArtist" placeholder="Artist (optional)">
+      <textarea id="editContent" rows="6" placeholder="Lyrics and chords here... Use [E] for chords"></textarea>
+      <div class="editor-buttons">
+        <button id="addSong">Add</button>
+        <button id="updateSong">Update</button>
+        <button id="deleteSong">Delete</button>
+      </div>
+      <div class="editor-import">
+        <input id="importFile" type="file" accept="application/json">
+        <button id="exportJson">Export JSON</button>
+        <button id="clearLocal">Clear Local</button>
+      </div>
+    </div>
+
     <div class="controls-compact">
       <label>Speed: <span id="speedVal">60</span> px/s</label>
       <input id="speed" type="range" min="10" max="300" value="60">

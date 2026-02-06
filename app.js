@@ -22,13 +22,28 @@ let fontSize = Number(localStorage.getItem('fontSize')||20)
 speedEl.value = speed; speedVal.textContent = speed
 fontEl.value = fontSize; fontVal.textContent = fontSize
 
-// Load songs from a single text file (`songs.txt`) where songs are separated
-// by a long dashed line (--------------------------------------------)
-fetch('songs.txt').then(r=>r.text()).then(txt=>{
-  songs = parseSongsTxt(txt)
-  renderSongList()
-  if(songs.length) loadSong(0)
-})
+// Editor elements
+const editTitle = document.getElementById('editTitle')
+const editArtist = document.getElementById('editArtist')
+const editContent = document.getElementById('editContent')
+const addSongBtn = document.getElementById('addSong')
+const updateSongBtn = document.getElementById('updateSong')
+const deleteSongBtn = document.getElementById('deleteSong')
+const exportBtn = document.getElementById('exportJson')
+const importFile = document.getElementById('importFile')
+const clearLocalBtn = document.getElementById('clearLocal')
+
+// Try to load songs from localStorage first, otherwise from songs.txt
+const stored = localStorage.getItem('customSongs')
+if(stored){
+  try{ songs = JSON.parse(stored); renderSongList(); if(songs.length) loadSong(0) }catch(e){ console.warn('Invalid customSongs in localStorage') }
+} else {
+  fetch('songs.txt').then(r=>r.text()).then(txt=>{
+    songs = parseSongsTxt(txt)
+    renderSongList()
+    if(songs.length) loadSong(0)
+  })
+}
 
 function parseSongsTxt(txt){
   const parts = txt.split(/\r?\n-{10,}\r?\n/).map(p=>p.trim()).filter(Boolean)
@@ -52,16 +67,100 @@ function parseSongsTxt(txt){
   })
 }
 
+// Editor actions
+function saveLocalSongs(){ localStorage.setItem('customSongs', JSON.stringify(songs)) }
+
+addSongBtn.addEventListener('click', ()=>{
+  const t = editTitle.value.trim() || 'Untitled'
+  const a = editArtist.value.trim()
+  const c = editContent.value.trim()
+  songs.push({title:t, artist:a, content:c})
+  renderSongList()
+  saveLocalSongs()
+  loadSong(songs.length-1)
+})
+
+updateSongBtn.addEventListener('click', ()=>{
+  const t = editTitle.value.trim() || 'Untitled'
+  const a = editArtist.value.trim()
+  const c = editContent.value.trim()
+  if(typeof idx === 'number' && songs[idx]){
+    songs[idx].title = t; songs[idx].artist = a; songs[idx].content = c
+    renderSongList(); saveLocalSongs(); loadSong(idx)
+  }
+})
+
+deleteSongBtn.addEventListener('click', ()=>{
+  if(!confirm('Delete this song?')) return
+  if(typeof idx==='number' && songs[idx]){
+    songs.splice(idx,1)
+    saveLocalSongs()
+    renderSongList()
+    if(songs.length) loadSong(Math.max(0, idx-1))
+    else viewer.innerHTML = ''
+  }
+})
+
+exportBtn.addEventListener('click', ()=>{
+  const json = JSON.stringify(songs,null,2)
+  // download
+  const blob = new Blob([json],{type:'application/json'})
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url; a.download = 'songs.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url)
+  // copy to clipboard
+  if(navigator.clipboard){ navigator.clipboard.writeText(json).catch(()=>{}) }
+})
+
+importFile.addEventListener('change', (e)=>{
+  const f = e.target.files[0]; if(!f) return
+  const r = new FileReader()
+  r.onload = ()=>{
+    try{ const parsed = JSON.parse(r.result); if(Array.isArray(parsed)) { songs = parsed; saveLocalSongs(); renderSongList(); loadSong(0) } else alert('Imported JSON is not an array') }
+    catch(err){ alert('Invalid JSON file') }
+  }
+  r.readAsText(f)
+})
+
+clearLocalBtn.addEventListener('click', ()=>{
+  if(!confirm('Clear locally saved songs and reload originals?')) return
+  localStorage.removeItem('customSongs')
+  location.reload()
+})
+
+// ensure song list highlights active
 function renderSongList(){
   songListEl.innerHTML = ''
   songs.forEach((s,i)=>{
     const el = document.createElement('div')
     el.className = 'song-item'
+    if(i===idx) el.classList.add('active')
     el.textContent = s.title + (s.artist? ' — '+s.artist : '')
-    el.addEventListener('click', ()=>{ loadSong(i); })
+    el.addEventListener('click', ()=>{ loadSong(i); populateEditor(i) })
     songListEl.appendChild(el)
   })
 }
+
+function populateEditor(i){
+  const s = songs[i]
+  editTitle.value = s.title || ''
+  editArtist.value = s.artist || ''
+  editContent.value = s.content || ''
+}
+
+
+function renderSongList(){
+  songListEl.innerHTML = ''
+  songs.forEach((s,i)=>{
+    const el = document.createElement('div')
+    el.className = 'song-item'
+    if(i===idx) el.classList.add('active')
+    el.textContent = s.title + (s.artist? ' — '+s.artist : '')
+    el.addEventListener('click', ()=>{ loadSong(i); populateEditor(i) })
+    songListEl.appendChild(el)
+  })
+}
+
 
 function parseToHtml(text){
   const lines = text.split(/\n/)
