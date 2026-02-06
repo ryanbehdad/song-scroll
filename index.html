@@ -2,42 +2,150 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
   <title>Song Scroll</title>
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <aside class="sidebar">
-    <h1>Song Scroll</h1>
-    <div id="songList" class="song-list"></div>
-    <div class="controls-compact">
-      <label>Speed: <span id="speedVal">60</span> px/s</label>
-      <div class="speed-controls">
-        <button id="speedMinus">-</button>
-        <input id="speed" type="range" min="1" max="600" value="60">
-        <button id="speedPlus">+</button>
-      </div>
-      <div style="margin-top:6px">
-        <label>Set speed (px/s): <input id="speedNum" type="number" min="1" max="2000" value="60" style="width:80px"></label>
-      </div>
-      <label>Font: <span id="fontVal">20</span>px</label>
-      <input id="font" type="range" min="12" max="48" value="20">
-    </div>
-  </aside>
+  <header class="topbar">
+    <button id="openSongs" class="icon-btn" aria-label="Songs" title="Songs">☰</button>
 
-  <main class="main">
-    <div class="toolbar">
-      <button id="toggleSidebar" onclick="(function(){var h=document.documentElement.classList;h.toggle('sidebar-hidden');localStorage.setItem('sidebarHidden', document.documentElement.classList.contains('sidebar-hidden')? '1':'0');})()">☰</button>
-      <button id="prev">⟨ Prev</button>
-      <button id="play">▶ Play</button>
-      <button id="pause">⏸ Pause</button>
-      <button id="next">Next ⟩</button>
-      <label class="toggle"><input id="autoscrollToggle" type="checkbox" checked> Auto-scroll</label>
-      <button id="top">Top</button>
+    <div class="now-playing">
+      <div id="songTitle" class="song-title">Song Scroll</div>
+      <div id="songArtist" class="song-artist"></div>
     </div>
 
-    <div id="viewer" class="viewer" tabindex="0"></div>
+    <button id="openSettings" class="icon-btn" aria-label="Settings" title="Settings">⚙︎</button>
+  </header>
+
+  <main class="stage">
+    <div id="viewer" class="viewer" tabindex="0" aria-label="Song viewer"></div>
   </main>
+
+  <footer class="player" aria-label="Playback controls">
+    <button id="prev" class="pill" aria-label="Previous song">⟨</button>
+    <button id="playPause" class="pill primary" aria-label="Play/pause">▶︎</button>
+    <button id="next" class="pill" aria-label="Next song">⟩</button>
+
+    <div class="meta">
+      <div class="speed">
+        <button id="speedDown" class="mini" aria-label="Slower">−</button>
+        <button id="openSpeed" class="chip" aria-label="Speed settings">
+          <span id="speedLabel">60</span>
+          <span class="chip-sub">px/s</span>
+        </button>
+        <button id="speedUp" class="mini" aria-label="Faster">+</button>
+      </div>
+
+      <div class="progress" aria-label="Scroll progress">
+        <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+        <div id="progressText" class="progress-text">0%</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SONG LIST -->
+  <dialog id="songsDialog" class="dialog">
+    <form method="dialog" class="dialog-inner">
+      <div class="dialog-head">
+        <div class="dialog-title">Songs</div>
+        <button class="icon-btn" value="cancel" aria-label="Close">✕</button>
+      </div>
+
+      <label class="field">
+        <span>Search</span>
+        <input id="songSearch" type="search" placeholder="Type to filter…" autocomplete="off" inputmode="search">
+      </label>
+
+      <div id="songList" class="song-list" role="listbox" aria-label="Song list"></div>
+
+      <div class="dialog-actions">
+        <button class="pill" value="cancel">Close</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- SETTINGS -->
+  <dialog id="settingsDialog" class="dialog">
+    <form method="dialog" class="dialog-inner">
+      <div class="dialog-head">
+        <div class="dialog-title">Settings</div>
+        <button class="icon-btn" value="cancel" aria-label="Close">✕</button>
+      </div>
+
+      <div class="grid">
+        <label class="field">
+          <span>Scroll mode</span>
+          <select id="scrollMode">
+            <option value="smooth">Continuous</option>
+            <option value="step">Step (line/page)</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Speed (px/s)</span>
+          <input id="speedRange" type="range" min="5" max="600" step="5" value="60">
+        </label>
+
+        <div class="row">
+          <label class="field">
+            <span>Step every (seconds)</span>
+            <input id="stepEvery" type="number" min="0.2" max="30" step="0.1" value="1.0">
+          </label>
+
+          <label class="field">
+            <span>Step size</span>
+            <select id="stepSize">
+              <option value="line">1 line</option>
+              <option value="2line">2 lines</option>
+              <option value="page">~1 page</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Font size</span>
+          <input id="fontSize" type="range" min="14" max="40" step="1" value="20">
+        </label>
+
+        <label class="field">
+          <span>Line spacing</span>
+          <input id="lineHeight" type="range" min="1.2" max="2.0" step="0.05" value="1.6">
+        </label>
+
+        <label class="toggle">
+          <input id="keepAwake" type="checkbox">
+          <span>Keep screen on while playing</span>
+        </label>
+
+        <label class="toggle">
+          <input id="tapToggles" type="checkbox">
+          <span>Tap lyrics to play/pause</span>
+        </label>
+
+        <label class="toggle">
+          <input id="swipeNav" type="checkbox">
+          <span>Swipe left/right to change songs</span>
+        </label>
+
+        <label class="toggle">
+          <input id="showChords" type="checkbox" checked>
+          <span>Highlight chords</span>
+        </label>
+      </div>
+
+      <div class="dialog-actions">
+        <button id="toTop" class="pill" value="cancel" type="button">Top</button>
+        <button id="fullscreen" class="pill" value="cancel" type="button">Fullscreen</button>
+        <button class="pill primary" value="cancel">Done</button>
+      </div>
+    </form>
+  </dialog>
 
   <script src="app.js"></script>
 </body>
