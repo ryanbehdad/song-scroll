@@ -2,7 +2,10 @@ For What It's Worth (Buffalo Springfield)
 
 D- DU -U DU
 
-[E] [A] [E] [A] (instead of [A] can play [A7])
+Intro
+
+[E] [A] 
+[E] [A] 
 
 [E] There's something happening here [A]
 But what it [E] is ain't exactly clear [A]
@@ -13,7 +16,8 @@ It's time we [E] stop
 Children, what's [D] that sound?
 [A] Everybody look, what's going [C] down?
 
-[E] [A] [E] [A]
+[E] [A] 
+[E] [A]
 
 [E] There's battle lines being [A] drawn
 Nobody's [E] right if everybody's [A] wrong
@@ -25,16 +29,17 @@ Hey, [D] what's that sound?
 [A] Everybody look, what's going down?
 [E] [A] [E] [A]
 
-[E] What a field day for the [A] heat (Ooh ooh ooh)
-A thousand people in the street (Ooh ooh ooh)
-Singing songs and they carrying signs (Ooh ooh ooh)
-Mostly say, "Hooray for our side" (Ooh ooh ooh)
+[E] What a field day for the [A] heat
+A thousand people in the street 
+Singing songs and they carrying signs
+Mostly say, "Hooray for our side" 
 
 It's time we stop
 Hey, what's that sound?
 Everybody look, what's going down?
 
-[E] [A] [E] [A]
+[E] [A] 
+[E] [A]
 
 Paranoia strikes deep
 Into your life it will creep
@@ -60,8 +65,6 @@ The Man Who Sold the World (David Bowie)
 
 DDUUD (for 0.5 bar: DD)
 
-6 times riff 
-
 riff 
 riff 
 riff 
@@ -69,7 +72,7 @@ riff
 riff 
 riff 
 
-(instead of the last 2 can play [F] [Dm] )
+(instead of the last 2 can play [F] [Dm])
 
 We passed upon the [A] stair 
 We [A] spoke of was and [Dm] when 
@@ -205,13 +208,13 @@ D D DU DU or 64342343
 [G] It's late in the [D/F#] evening
 [C] She's wondering what [D] clothes to wear
 
-[G] She puts on her [D/F#]  makeup
+[G] She puts on her [D/F#] makeup
 [C] And brushes her [D] long black hair
 
 [C] And then she [D] asks me
 [G] "Do I [D/F#] look all [Em] right?"
 
-And I say, [C] "Yes, you look [D] wonderful to-[G]-night"
+And I say, [C] "Yes, you look [D] wonderful to[G]night"
 
 [G] 
 [D/F#] 
@@ -235,7 +238,7 @@ And I say, [C] "Yes, I feel [D] wonderful tonight"
 I feel [C] wonderful [D] because I see 
 the [G] love light [D/F#] in your [Em] eyes
 Then the [C] wonder of it [D] all
-is that you [C] just don't real-[D]-ize
+is that you [C] just don't real[D]ize
 How much I [G] love you
 
 [G]
@@ -268,9 +271,10 @@ Hey There Delilah (Plain White T's)
 
 Singing starts in [G] - Capo 2
 
-[C] [Em] 
-
-[C] [Em]
+[C] 
+[Em] 
+[C] 
+[Em]
 
 [C] Hey there, Delilah
 What's it [Em] like in New York City?
@@ -322,7 +326,7 @@ I'd [C] walk to you if I had no other [Am] way
 Our [F] friends would all make fun of us
 And [G] we'll just laugh along because
 We [C] know that none of them have felt this [Am] way
-De-[F]-lilah, I can promise you
+De[F]lilah, I can promise you
 That [G] by the time we get through
 The [Am] world will never, ever be the same
 And you're to [G] blame ee
@@ -381,15 +385,18 @@ Your [C] lips move, but I can't hear what you're [G] saying
 When [D] I was a child, I had a [A] fever
 My [D] hands felt just like two [A] balloons
 [C] Now I've got that feeling once [G] again
-I can't explain, you would not under[C] stand
+I can't explain, you would not under[C]stand
 This is not how I [G] am
 [A] I [C] have become [G] comfortably [D] numb
 
 [Guitar Solo 1] 
-[D] [A] [D] [A] 
-[C] [G] [C] [G] 
+[D] [A] 
+[D] [A] 
+[C] [G] 
+[C] [G] 
 
-[A] I [C] have become [G] comfortably [D] numb
+[A] I [C] have become 
+[G] comfortably [D] numb
 
 Verse 2: [Bm] [A] [G] [Em] [Bm] X 3
 [Bm] Okay Okay, okay, okay
