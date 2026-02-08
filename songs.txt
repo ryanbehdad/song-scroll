@@ -62,6 +62,13 @@ DDUUD (for 0.5 bar: DD)
 
 6 times riff 
 
+riff 
+riff 
+riff 
+riff 
+riff 
+riff 
+
 (instead of the last 2 can play [F] [Dm] )
 
 We passed upon the [A] stair 
@@ -79,6 +86,8 @@ You're face [C] to face [F]
 With the man [C#] who sold the world 
 
 Riff ([A] [Dm])
+Riff ([A] [Dm])
+Riff ([A] [Dm])
 
 I laughed and shook his [A] hand 
 And [A] made my way back [Dm] home 
@@ -89,10 +98,15 @@ At [C] all the millions here [A]
 We must have [A 0.5] died a-[Dm] -lone 
 A [Dm] long, long time [C] ago [C] 
 
-{Who knows [C]? Not me [F] 
+Who knows [C]? Not me [F] 
 We never [C#] lost control [F] 
 You're face [C] to face [F] 
-With the man [C#] who sold the world [A][Dm]} X 2
+With the man [C#] who sold the world [A][Dm]
+
+Who knows [C]? Not me [F] 
+We never [C#] lost control [F] 
+You're face [C] to face [F] 
+With the man [C#] who sold the world [A][Dm]
 
 Riff ([A] [Dm])
 
@@ -100,13 +114,18 @@ Riff ([A] [Dm])
 
 We’re Going to Be Friends (The White Stripes)
 
+Intro
+
 [G] Fall is here, hear the yell
 [G] Back to school, ring the bell
 [C] Brand new shoes, walking blues
 [G] Climb the fence, books and pens
 [D] I can tell that
 [Cadd9] we are gonna be
-[G] friends X 2
+[G] friends
+[D] I can tell that
+[Cadd9] we are gonna be
+[G] friends
 
 
 [G] Walk with me, Suzy Lee
@@ -115,7 +134,10 @@ We’re Going to Be Friends (The White Stripes)
 [G] And look at all the bugs we've found
 [D] safely walk to
 [Cadd9] school without a
-[G] sound X 2
+[G] sound
+[D] safely walk to
+[Cadd9] school without a
+[G] sound
 
 
 [G] Well, here we are, no one else
@@ -124,7 +146,10 @@ We’re Going to Be Friends (The White Stripes)
 [G] From chasing all the ants and worms
 [D] We clean up and
 [Cadd9] now it's time to
-[G] learn X 2
+[G] learn
+[D] We clean up and
+[Cadd9] now it's time to
+[G] learn
 
 
 [G] Numbers, letters, learn to spell
@@ -133,7 +158,10 @@ We’re Going to Be Friends (The White Stripes)
 [G] Back to class, through the hall
 [D] Teacher marks our
 [Cadd9] height against the
-[G] wall X 2
+[G] wall
+[D] Teacher marks our
+[Cadd9] height against the
+[G] wall
  
 
 [C] We don't notice any
@@ -152,11 +180,9 @@ We’re Going to Be Friends (The White Stripes)
 [D] That you and I will
 [Cadd9] walk together
 [G] again
- 
 [D] I can tell that
 [Cadd9] we are gonna be
 [G] friends
- 
 [D] I can tell that
 [Cadd9] we are gonna be
 [G6] friends
@@ -223,79 +249,84 @@ Hey There Delilah (Plain White T's)
 
 Singing starts in [G] - Capo 2
 
-[C] [Em] [C] [Em]
+[C] [Em] 
+[C] [Em]
+
+
 [C] Hey there, Delilah
 What's it [Em] like in New York City?
 I'm a [C] thousand miles away
 But girl, to-Em-night, you look so pretty
-Yes, you Am do Am/G (only the fourth5)
-[F] Times Square can't [G] shine as bright as Am you
+Yes, you [Am] do Am/G (only the fourth5)
+[F] Times Square can't [G] shine as bright as [Am] you
 I swear it's [G] true
 
 [C] Hey there, Delilah
 Don't you [Em] worry about the distance
 I'm right [C] there if you get lonely
 Give this [Em] song another listen
-Close your Am eyes [G] 
-F Listen to my [G] voice, it's my Am disguise
+Close your [Am] eyes [G] 
+F Listen to my [G] voice, it's my [Am] disguise
 I'm by your [G] side
 
-[C] Oh, it's what you do to Am me
-[C] Oh, it's what you do to Am me
-[C] Oh, it's what you do to Am me
-[C] Oh, it's what you do to Am me
+[C] Oh, it's what you do to [Am] me
+[C] Oh, it's what you do to [Am] me
+[C] Oh, it's what you do to [Am] me
+[C] Oh, it's what you do to [Am] me
 What you do to [C] me
 
 [C] Hey there, Delilah
 I know [Em] times are getting hard
 But just [C] believe me, girl
 Someday I'll pay the [Em] bills with this guitar
-We'll have it Am good [G] 
-[F] We'll have the [G] life we knew we Am would
+We'll have it [Am] good [G] 
+[F] We'll have the [G] life we knew we [Am] would
 My word is [G] good
 
 [C] Hey there, Delilah
 I've got [Em] so much left to say
 If every [C] simple song I wrote to you
 Would [Em] take your breath away
-I'd write it Am all [G] 
-[F] Even more in [G] love with me you'd Am fall
+I'd write it [Am] all [G] 
+[F] Even more in [G] love with me you'd [Am] fall
 We'd have it [G] all
 
-[C] Oh, it's what you do to Am me
-[C] Oh, it's what you do to Am me
-[C] Oh, it's what you do to Am me
-[C] Oh, it's what you do to Am me
+[C] Oh, it's what you do to [Am] me
+[C] Oh, it's what you do to [Am] me
+[C] Oh, it's what you do to [Am] me
+[C] Oh, it's what you do to [Am] me
 What you do to [C] me
 
 A [F] thousand miles seems pretty far
 But [G] they've got planes, and trains, and cars
-I'd [C] walk to you if I had no other Am way
+I'd [C] walk to you if I had no other [Am] way
 Our [F] friends would all make fun of us
 And [G] we'll just laugh along because
-We [C] know that none of them have felt this Am way
-De-F-lilah, I can promise you
+We [C] know that none of them have felt this [Am] way
+De-[F]-lilah, I can promise you
 That [G] by the time we get through
-The Am world will never, ever be the same
+The [Am] world will never, ever be the same
 And you're to [G] blame ee
 
 [C] Hey there, Delilah
 You be [Em] good and don't you miss me
 Two more [C] years and you'll be done with school
 And [Em] I'll be making history 
-like I Am do [G] 
-[F] You'll know it's [G] all because of Am you
-[F] We can do what-G-ever we want Am to
-[F] Hey there, De-G-lilah, here's to Am you
+like I [Am] do [G] 
+[F] You'll know it's [G] all because of [Am] you
+[F] We can do what-G-ever we want [Am] to
+[F] Hey there, De-G-lilah, here's to [Am] you
 This one's for [G] you
 
-[C] Oh, it's what you do to Am me
-[C] Oh, it's what you do to Am me
-[C] Oh, it's what you do to Am me
-[C] Oh, it's what you do to Am me
+[C] Oh, it's what you do to [Am] me
+[C] Oh, it's what you do to [Am] me
+[C] Oh, it's what you do to [Am] me
+[C] Oh, it's what you do to [Am] me
 What you do to [C] me
 
-[C] Am x 3
+[C] [Am]
+[C] [Am]
+[C] [Am]
 [C] [C] 
 
 --------------------------------------------
@@ -335,7 +366,9 @@ I can't explain, you would not under[C] stand
 This is not how I [G] am
 [A] I [C] have become [G] comfortably [D] numb
 
-[Guitar Solo 1] [D] [A] [D] [A] - [C] [G] [C] [G] 
+[Guitar Solo 1] 
+[D] [A] [D] [A] 
+[C] [G] [C] [G] 
 
 [A] I [C] have become [G] comfortably [D] numb
 
@@ -424,7 +457,11 @@ And [Am] God, I [E] know I'm [Am] one.
 
 Hurt (Johnny Cash)
 
-[Am] [C] [D] [Am] [C] [D] [Am]
+[Am] [C] [D] 
+
+[Am] [C] [D] 
+
+[Am]
 
 I [C] hurt my [D] self to [Am] day  
 To [C] see if [D] I still [Am] feel  
@@ -633,8 +670,8 @@ Wonderwall (Oasis)
 
 Capo:2
 
-(D [D] D DU)(DUD [D] DU)
-(DUD [D] DU)( U UDUDU)
+(D D D DU)(DUD D DU)
+(DUD D DU)( U UDUDU)
 
 [Intro]
 [Em] [G] [D] [A7sus4]  (x3)
