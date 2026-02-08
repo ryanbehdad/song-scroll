@@ -195,9 +195,12 @@ Intro
 
 Wonderful Tonight (Eric Clapton)
 
-[G], [D/F#] [C] [D] 
 D D DU DU or 64342343
 
+[G] 
+[D/F#] 
+[C] 
+[D] 
 
 [G] It's late in the [D/F#] evening
 [C] She's wondering what [D] clothes to wear
@@ -210,7 +213,10 @@ D D DU DU or 64342343
 
 And I say, [C] "Yes, you look [D] wonderful to-[G]-night"
 
-[G], [D/F#] [C] [D] 
+[G] 
+[D/F#] 
+[C] 
+[D] 
 
 [G] (We) go to a [D/F#] party
 [C] (And) everyone [D] turns to see
@@ -223,7 +229,8 @@ Who's [C] walking [D] around with me
 
 And I say, [C] "Yes, I feel [D] wonderful tonight" 
 
-[G][G]
+[G]
+[G]
 
 I feel [C] wonderful [D] because I see 
 the [G] love light [D/F#] in your [Em] eyes
@@ -231,9 +238,15 @@ Then the [C] wonder of it [D] all
 is that you [C] just don't real-[D]-ize
 How much I [G] love you
 
-[G] [D/F#] [C] [D]
+[G]
+[D/F#]
+[C]
+[D]
 
-[G] [D/F#] [C] [D]
+[G]
+[D/F#] 
+[C] 
+[D]
 
 [G] It's time to go [D/F#] home now
 [C] And I've got an aching [D] head
@@ -243,8 +256,11 @@ How much I [G] love you
 [C] And then I tell [D] her
 
 [G] As I [D/F#] turn out the [Em] light
-I say, "My [C] darling, you were [D] wonderful to-[G]-night" [Em] 
-"Oh, my [C] darling, you were [D] wonderful to-[G]-night"
+I say, "My [C] darling, 
+you were [D] wonderful to-[G]-night" 
+[Em] 
+"Oh, my [C] darling, 
+you were [D] wonderful to-[G]-night"
 
 --------------------------------------------
 
@@ -255,7 +271,6 @@ Singing starts in [G] - Capo 2
 [C] [Em] 
 
 [C] [Em]
-
 
 [C] Hey there, Delilah
 What's it [Em] like in New York City?
