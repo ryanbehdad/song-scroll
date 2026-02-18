@@ -24,14 +24,11 @@ const btnFaster = document.getElementById("btnFaster");
 const progress = document.getElementById("progress");
 
 const modeSmoothBtn = document.getElementById("modeSmooth");
-const modeStepBtn = document.getElementById("modeStep");
 
 const songSearch = document.getElementById("songSearch");
 const songList = document.getElementById("songList");
 
 const speed = document.getElementById("speed");
-const stepSize = document.getElementById("stepSize");
-const stepEvery = document.getElementById("stepEvery");
 
 const font = document.getElementById("font");
 const fontVal = document.getElementById("fontVal");
@@ -192,25 +189,22 @@ let rafId = null;
 let lastTs = null;
 
 // step mode interval
-let stepTimer = null;
+// step mode removed; no step timer
 
 // If the browser quantises scrollTop to integer pixels, very low speeds can look like they 'stop'.
 // We keep a fractional carry so low speeds still advance reliably.
 let smoothCarry = 0;
 
 function setMode(mode){
-  prefs.mode = mode;
+  // Force smooth-only mode
+  prefs.mode = "smooth";
   savePrefs();
-
-  modeSmoothBtn.classList.toggle("active", mode === "smooth");
-  modeStepBtn.classList.toggle("active", mode === "step");
-
+  modeSmoothBtn.classList.add("active");
   // Stop current playback when switching modes
   stop();
 }
 
 modeSmoothBtn.addEventListener("click", () => setMode("smooth"));
-modeStepBtn.addEventListener("click", () => setMode("step"));
 
 function scrollableMax(){
   return Math.max(0, viewer.scrollHeight - viewer.clientHeight);
@@ -272,8 +266,6 @@ function stopTimers(){
   if (rafId) cancelAnimationFrame(rafId);
   rafId = null;
   lastTs = null;
-  if (stepTimer) clearInterval(stepTimer);
-  stepTimer = null;
   smoothCarry = 0;
 }
 
@@ -288,13 +280,10 @@ function start(){
   if (prefs.wakeEnabled) acquireWakeLock();
 
   // Sync internal scroll state with current scrollTop
-  if (prefs.mode === "smooth"){
-    lastTs = null;
-    smoothCarry = 0;
-    rafId = requestAnimationFrame(tickSmooth);
-  } else {
-    startStep();
-  }
+  // Smooth-only playback
+  lastTs = null;
+  smoothCarry = 0;
+  rafId = requestAnimationFrame(tickSmooth);
 }
 
 function stop(){
@@ -356,39 +345,7 @@ function linePx(){
   const lh = parseFloat(getComputedStyle(viewer).lineHeight) || 24;
   return lh;
 }
-
-function stepAmount(){
-  const size = stepSize.value;
-  const lh = linePx();
-  if (size === "line") return lh;
-  if (size === "two") return lh * 2;
-  if (size === "half") return Math.max(lh, Math.floor(viewer.clientHeight * 0.5));
-  return Math.max(lh, Math.floor(viewer.clientHeight * 0.9));
-}
-
-function startStep(){
-  const every = clamp(Number(stepEvery.value) || prefs.stepEvery, 0.2, 30);
-  prefs.stepEvery = every;
-  prefs.stepSize = stepSize.value;
-  savePrefs();
-
-  const doStep = () => {
-    if (!playing || prefs.mode !== "step") return;
-    viewer.scrollTop = viewer.scrollTop + stepAmount();
-    updateProgressFromScroll();
-    if (atBottom()) stop();
-  };
-
-  doStep();
-  stepTimer = setInterval(doStep, every * 1000);
-}
-
-stepSize.addEventListener("change", () => {
-  prefs.stepSize = stepSize.value; savePrefs();
-});
-stepEvery.addEventListener("change", () => {
-  prefs.stepEvery = clamp(Number(stepEvery.value) || 2.0, 0.2, 30); savePrefs();
-});
+// step mode removed: no stepAmount/startStep or related listeners
 
 // Tap viewer toggles play/pause (optional)
 viewer.addEventListener("click", () => {
@@ -588,8 +545,7 @@ async function init(){
   applySpeedToUI();
   applyTypography();
 
-  stepSize.value = prefs.stepSize;
-  stepEvery.value = String(prefs.stepEvery);
+  // step mode removed; no UI values to set
   tapToggle.checked = !!prefs.tapToToggle;
 
   renderWakeUI();
