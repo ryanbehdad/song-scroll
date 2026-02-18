@@ -57,6 +57,8 @@ let prefs = {
   fontPx: 20,
   lineHeight: 1.55,
   wakeEnabled: false,
+  // default changed to true so Awake is On by default
+  wakeEnabled: true,
   tapToToggle: true
 };
 
