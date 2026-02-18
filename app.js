@@ -284,6 +284,7 @@ function start(){
   playing = true;
   playIcon();
 
+  if (wakeReleaseTimer) { clearTimeout(wakeReleaseTimer); wakeReleaseTimer = null; }
   if (prefs.wakeEnabled) acquireWakeLock();
 
   // Sync internal scroll state with current scrollTop
@@ -300,7 +301,8 @@ function stop(){
   playing = false;
   playIcon();
   stopTimers();
-  releaseWakeLock();
+  if (prefs.wakeEnabled) scheduleWakeRelease();
+  else releaseWakeLock();
 }
 
 function toggle(){
@@ -435,6 +437,18 @@ lineHeight.addEventListener("input", () => {
 // --- Wake Lock ---
 let wakeLock = null;
 
+let wakeReleaseTimer = null;
+const WAKE_GRACE_MS = 3 * 60 * 1000; // keep screen on for a few minutes after stopping
+
+function scheduleWakeRelease(){
+  if (wakeReleaseTimer) clearTimeout(wakeReleaseTimer);
+  wakeReleaseTimer = setTimeout(() => {
+    wakeReleaseTimer = null;
+    // Only release if we're still not playing
+    if (!playing) releaseWakeLock();
+  }, WAKE_GRACE_MS);
+}
+
 async function acquireWakeLock(){
   try{
     if (!("wakeLock" in navigator)) throw new Error("Wake Lock unsupported");
@@ -462,7 +476,8 @@ btnWake.addEventListener("click", async () => {
   prefs.wakeEnabled = !prefs.wakeEnabled;
   savePrefs();
   if (prefs.wakeEnabled && playing) await acquireWakeLock();
-  if (!prefs.wakeEnabled) await releaseWakeLock();
+  if (wakeReleaseTimer) { clearTimeout(wakeReleaseTimer); wakeReleaseTimer = null; }
+  await releaseWakeLock();
   renderWakeUI();
 });
 document.addEventListener("visibilitychange", async () => {
