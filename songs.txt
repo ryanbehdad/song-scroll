@@ -564,7 +564,7 @@ P↓ i↓ i↑ i↓ i↑ P↓ i↓
 [Em] Ye shab to khab [B7] vaghte sahar 
 [Em] shahzade-ye [B7] zarrin kamar
 [Am] neshaste bar [B7] asb-e sefid 
-miomad az [Em] kuh o kamar
+[B7] miomad az [Em] kuh o kamar
 
 [B7] mi raft o aa[Em]tash be delam
 [B7] mi zad negaa[Em]hash
@@ -573,15 +573,15 @@ miomad az [Em] kuh o kamar
 [B7] mi zad negaa[Em]hash
 
 [Am] kashki delam [B7] rosva beshe, 
-darya beshe, in do cheshm-e por aa[C]bam
+[B7] darya beshe, [B7]in do cheshm-e por aa[C]bam
 
 [Am] ruzi ke bakhtam [Am] va beshe, 
-peyda beshe, [B7] un ke omad to khaabam
+[Am] peyda beshe, [B7] un ke omad to khaa[B7]bam
 
 [B7] shahzade-ye [Am] royaye man 
-shayad toyi 
-un kas ke shab [C] dar khab-e man 
-ayad toyi to [B7] ...
+[Am] shayad toyi 
+[Am] un kas ke shab [C] dar khab-e man 
+[C] ayad toyi to [B7] ...
 
 az khab-e shirin [Am], 
 nagah paridam [Em], 
@@ -592,7 +592,7 @@ be khoda
 [Am] janam reside 
 [Em] az ghosse bar lab 
 [B7] har ruz o har shab, 
-dar entezaa[Em]ram be khoda 
+[B7] dar entezaaram be [Em] khoda 
 
 
 --------------------------------------------
