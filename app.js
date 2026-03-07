@@ -635,9 +635,34 @@ async function init(){
     viewer.innerHTML = '<div class="muted">Failed to load songs.txt. Check it exists in the repo root.</div>';
   }
 
-  // Service worker
+  // Service worker: aggressively apply updates so mobile clients refresh to latest release.
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js").catch(()=>{});
+    navigator.serviceWorker.register("./sw.js").then((reg) => {
+      const askWaitingToActivate = () => {
+        if (reg.waiting) reg.waiting.postMessage({ type: "SKIP_WAITING" });
+      };
+
+      reg.update().catch(() => {});
+      setInterval(() => reg.update().catch(() => {}), 60 * 1000);
+
+      askWaitingToActivate();
+      reg.addEventListener("updatefound", () => {
+        const installing = reg.installing;
+        if (!installing) return;
+        installing.addEventListener("statechange", () => {
+          if (installing.state === "installed" && navigator.serviceWorker.controller) {
+            askWaitingToActivate();
+          }
+        });
+      });
+
+      let reloadedForSw = false;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (reloadedForSw) return;
+        reloadedForSw = true;
+        window.location.reload();
+      });
+    }).catch(()=>{});
   }
 }
 init();

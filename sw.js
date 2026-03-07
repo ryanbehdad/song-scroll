@@ -1,5 +1,5 @@
 // Simple offline cache for Song Scroll (GitHub Pages)
-const CACHE = "song-scroll-v5";
+const CACHE = "song-scroll-v6";
 const ASSETS = [
   "./",
   "./index.html",
@@ -24,14 +24,42 @@ self.addEventListener("activate", (e) => {
   self.clients.claim();
 });
 
+self.addEventListener("message", (e) => {
+  if (e.data && e.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+
 // Cache strategy:
 // - songs.txt: network-first so updates appear after you deploy
+// - app shell: network-first so releases propagate quickly
 // - other assets: cache-first
 self.addEventListener("fetch", (e) => {
+  if (e.request.method !== "GET") return;
   const url = new URL(e.request.url);
+  if (url.origin !== self.location.origin) return;
+
   const isSongs = url.pathname.endsWith("/songs.txt") || url.pathname.endsWith("songs.txt");
+  const isAppShell =
+    e.request.mode === "navigate" ||
+    url.pathname.endsWith("/") ||
+    url.pathname.endsWith("/index.html") ||
+    url.pathname.endsWith("/styles.css") ||
+    url.pathname.endsWith("/app.js") ||
+    url.pathname.endsWith("/manifest.webmanifest");
 
   if (isSongs) {
+    e.respondWith(
+      fetch(e.request).then(res => {
+        const clone = res.clone();
+        caches.open(CACHE).then(c => c.put(e.request, clone));
+        return res;
+      }).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+
+  if (isAppShell) {
     e.respondWith(
       fetch(e.request).then(res => {
         const clone = res.clone();
