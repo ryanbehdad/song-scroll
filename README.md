@@ -31,7 +31,7 @@ Songs are separated by a line of 10+ dashes, e.g.
 ----------
 Title (Artist optional in brackets)
 Artist (optional second line, still supported)
-@speed: 15
+@speed: 11
 Lyrics and chords...
 
 ----------
@@ -45,7 +45,7 @@ Next Title
 
 ## Auto-scroll speed
 
-- Smooth mode uses **1–40 px/s**, default **15**.
+- Smooth mode uses **1–40 px/s**, default **11**.
 - Speed changes in **increments of 1**.
 - The app avoids `Math.floor()` when updating scroll position, so low speeds still move smoothly.
 

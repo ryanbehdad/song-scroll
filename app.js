@@ -42,6 +42,7 @@ const btnFit = document.getElementById("btnFit");
 const toast = document.getElementById("toast");
 
 const LS_KEY = "songscroll_prefs_v2";
+const DEFAULT_SPEED = 11;
 
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
@@ -51,7 +52,7 @@ let idx = 0;
 // --- Preferences ---
 let prefs = {
   mode: "smooth",         // "smooth" | "step"
-  speed: 15,              // px/s (1..40)  <-- requested
+  speed: DEFAULT_SPEED,   // px/s (1..40)
   stepSize: "line",       // line | two | half | page
   stepEvery: 2.0,         // seconds
   fontPx: 20,
@@ -66,7 +67,7 @@ function loadPrefs(){
     if (p && typeof p === "object") prefs = {...prefs, ...p};
   }catch{}
   // enforce requested constraints
-  prefs.speed = clamp(Number(prefs.speed) || 15, 1, 40);
+  prefs.speed = clamp(Number(prefs.speed) || DEFAULT_SPEED, 1, 40);
   prefs.stepEvery = clamp(Number(prefs.stepEvery) || 2.0, 0.2, 30);
   prefs.fontPx = clamp(Number(prefs.fontPx) || 20, 14, 34);
   prefs.lineHeight = clamp(Number(prefs.lineHeight) || 1.55, 1.2, 2.0);
@@ -180,11 +181,11 @@ function parseSongsTxt(txt){
       }
     }
 
-    // Optional metadata lines before content, e.g. "@speed: 15"
+    // Optional metadata lines before content, e.g. "@speed: 11"
     while (contentStart < lines.length) {
       const m = (lines[contentStart] || "").trim().match(/^@speed\s*[:=]\s*([0-9]+(?:\.[0-9]+)?)\s*$/i);
       if (!m) break;
-      speed = clamp(Number(m[1]) || 15, 1, 40);
+      speed = clamp(Number(m[1]) || DEFAULT_SPEED, 1, 40);
       contentStart++;
     }
     while (contentStart < lines.length && !(lines[contentStart] || "").trim()) contentStart++;
@@ -257,14 +258,14 @@ viewer.addEventListener("scroll", () => {
 });
 
 function applySpeedToUI(){
-  const s = clamp(Number(prefs.speed) || 15, 1, 40);
+  const s = clamp(Number(prefs.speed) || DEFAULT_SPEED, 1, 40);
   prefs.speed = s;
   speed.value = String(s);
   speedVal.textContent = String(s);
   speedVal2.textContent = String(s);
 }
 function setSpeedValue(v, options = {}){
-  const s = clamp(Number(v) || 15, 1, 40);
+  const s = clamp(Number(v) || DEFAULT_SPEED, 1, 40);
   prefs.speed = s;
   if (options.persist !== false) savePrefs();
   applySpeedToUI();
