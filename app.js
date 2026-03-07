@@ -23,8 +23,6 @@ const btnFaster = document.getElementById("btnFaster");
 
 const progress = document.getElementById("progress");
 
-const modeSmoothBtn = document.getElementById("modeSmooth");
-
 const songSearch = document.getElementById("songSearch");
 const songList = document.getElementById("songList");
 
@@ -182,13 +180,20 @@ function parseSongsTxt(txt){
     }
 
     // Optional metadata lines before content, e.g. "@speed: 11"
-    while (contentStart < lines.length) {
-      const m = (lines[contentStart] || "").trim().match(/^@speed\s*[:=]\s*([0-9]+(?:\.[0-9]+)?)\s*$/i);
-      if (!m) break;
-      speed = clamp(Number(m[1]) || DEFAULT_SPEED, 1, 40);
-      contentStart++;
+    let j = contentStart;
+    while (j < lines.length) {
+      const raw = lines[j] || "";
+      const line = raw.trim();
+      if (!line) { j++; continue; }
+      const m = line.match(/^@speed\s*[:=]\s*([0-9]+(?:\.[0-9]+)?)\s*$/i);
+      if (m) {
+        speed = clamp(Number(m[1]) || DEFAULT_SPEED, 1, 40);
+        j++;
+        continue;
+      }
+      break;
     }
-    while (contentStart < lines.length && !(lines[contentStart] || "").trim()) contentStart++;
+    contentStart = j;
 
     const content = lines.slice(contentStart).join("\n").trim();
     return { title, artist, content, speed };
@@ -219,16 +224,12 @@ const START_SCROLL_DELAY_SEC = 5;
 // We keep a fractional carry so low speeds still advance reliably.
 let smoothCarry = 0;
 
-function setMode(mode){
-  // Force smooth-only mode
-  prefs.mode = "smooth";
-  savePrefs();
-  modeSmoothBtn.classList.add("active");
-  // Stop current playback when switching modes
-  stop();
+function ensureSmoothMode(){
+  if (prefs.mode !== "smooth") {
+    prefs.mode = "smooth";
+    savePrefs();
+  }
 }
-
-modeSmoothBtn.addEventListener("click", () => setMode("smooth"));
 
 function scrollableMax(){
   return Math.max(0, viewer.scrollHeight - viewer.clientHeight);
@@ -429,7 +430,7 @@ btnFit.addEventListener("click", () => {
   const needed = max / (mins * 60);
   const s = clamp(needed, 1, 40);
   setSpeedValue(s);
-  setMode("smooth");
+  ensureSmoothMode();
   showToast(`Speed set to ${prefs.speed}`);
 });
 
@@ -618,7 +619,7 @@ async function init(){
   tapToggle.checked = !!prefs.tapToToggle;
 
   renderWakeUI();
-  setMode(prefs.mode);
+  ensureSmoothMode();
 
   try{
     await loadSongs();
