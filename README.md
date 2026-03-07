@@ -2,6 +2,15 @@
 
 This is a mobile-first chord/lyrics viewer with auto-scroll.
 
+## Public Repo Safety Rule
+
+This repository is public. Never commit private or sensitive information here.
+
+- Do not store credentials, API keys, tokens, passwords, or private URLs.
+- Do not store private personal data (emails, phone numbers, addresses, etc.).
+- Keep song/content data non-sensitive and safe for public hosting.
+- If anything sensitive is added by mistake, rotate/revoke it and remove it from git history.
+
 Your GitHub Pages address:
 - https://ryanbehdad.github.io/song-scroll/
 
@@ -20,13 +29,19 @@ Your GitHub Pages address:
 Songs are separated by a line of 10+ dashes, e.g.
 
 ----------
-Title
-Artist (optional)
+Title (Artist optional in brackets)
+Artist (optional second line, still supported)
+@speed: 15
 Lyrics and chords...
 
 ----------
 Next Title
 ...
+
+### Metadata lines
+
+- `@speed: N` sets that song's default scroll speed (`N` is clamped to `1..40`).
+- Recommended header format: `Song Title (Artist Name)`.
 
 ## Auto-scroll speed
 

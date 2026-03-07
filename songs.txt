@@ -1,5 +1,6 @@
 For What It's Worth (Buffalo Springfield)
 
+@speed: 15
 D- DU -U DU
 
 Intro
@@ -63,6 +64,7 @@ Everybody look, what's going down?
 
 The Man Who Sold the World (David Bowie)
 
+@speed: 15
 DDUUD (for 0.5 bar: DD)
 
 riff 
@@ -117,6 +119,7 @@ Riff ([A] [Dm])
 
 We’re Going to Be Friends (The White Stripes)
 
+@speed: 15
 Intro
 
 [G]
@@ -198,6 +201,7 @@ Intro
 
 Wonderful Tonight (Eric Clapton)
 
+@speed: 15
 D D DU DU or 64342343
 
 [G] 
@@ -269,6 +273,7 @@ you were [D] wonderful to-[G]-night"
 
 Hey There Delilah (Plain White T's) 
 
+@speed: 15
 Singing starts in [G] - Capo 2
 
 [C] 
@@ -356,6 +361,7 @@ What you do to [C] me
 
 Comfortably Numb (Pink Floyd)
 
+@speed: 15
 D DU U U
 
 [Bm] 
@@ -428,6 +434,7 @@ The child is grown, the [G] dream is gone
 
 House Of The Rising Sun (The Animals)
 
+@speed: 15
 Intro
 
 [Am] [C]
@@ -499,6 +506,7 @@ And [Am] God, I [E] know I'm [Am] one.
 
 Hurt (Johnny Cash)
 
+@speed: 15
 [Am] [C] [D] 
 
 [Am] [C] [D] 
@@ -559,6 +567,7 @@ A million [G] miles [G] away
 
 Shahzadehye Roya (Ahdieh)
 
+@speed: 15
 P↓ i↓ i↑ i↓ i↑ P↓ i↓
 
 [Em] Ye shab to khab [B7] vaghte sahar 
@@ -599,6 +608,7 @@ be khoda
 
 Sharghi-ye Ghamgin (Fereydoun Farrokhzad)
 
+@speed: 15
 (thumb, 3 lower fingers. Can alternate thumb between 5th and 4th strings)
 
 [Am]
@@ -657,6 +667,7 @@ to mesl-e rooz paaki, mesl-e daryaa maghroori nazar khaamooshi joon begire
 Hezaar o Yek Shab (Erfan Tahmasbi)
 
 
+@speed: 15
 [F#] Ghesse-ye hezaar o yek shab [G] to delam kaashti
 [A] to chi aavordi ke jaash [G] ghalbamo [F#] bardaashti
 
@@ -686,6 +697,7 @@ Hezaar o Yek Shab (Erfan Tahmasbi)
 
 Black (Pearl Jam)
 
+@speed: 15
 [E] Sheets of empty [A] canvas
 Untouched [E] sheets of clay [A]
 Were [E] laid spread out be[A]fore me
@@ -744,6 +756,7 @@ Why can't it be mine
 
 Good Riddance (Green Day)
 
+@speed: 15
 D DU UD
 
 [Intro]
@@ -780,6 +793,7 @@ X 3
 
 Wonderwall (Oasis)
 
+@speed: 15
 Capo:2
 
 (D D D DU)(DUD D DU)
@@ -856,6 +870,7 @@ And [Em]after [C] all [Em]
 
 Last Kiss (Pearl Jam)
 
+@speed: 15
 [G] [Em] [C] [D]
 
 Well, [G] where oh where can my [Em] baby be?
@@ -899,6 +914,7 @@ Ooh oooh ohhh (to the tune of the chorus)
 
 Bad Moon Rising  (Creedence Clearwater Revival and Creedence Clearwater Revived)
 
+@speed: 15
 [D]I see A [A]bad [G]moon [D]rising
 [D]I see [A]trouble [G]on the [D]way
 [D]I see [A]earth[G]quakes and [D]lightning
@@ -933,6 +949,7 @@ Well it's [D] bound to take your life
 
 Everyday Is Like Sunday (Morrissey)
 
+@speed: 15
 [G] Trudging slowly over [C] wet sand
 Back to the [G] bench where your clothes were [C] stolen
 This is the coastal town [D] 
@@ -968,6 +985,7 @@ Everyday is silent and grey
 
 Heartbreak Hotel (Elvis Presley)
 
+@speed: 15
 Well, since my baby left me [E],
 I found a new place to dwell [E].
 It’s down at the end of lonely street

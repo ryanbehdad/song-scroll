@@ -56,8 +56,6 @@ let prefs = {
   stepEvery: 2.0,         // seconds
   fontPx: 20,
   lineHeight: 1.55,
-  wakeEnabled: false,
-  // default changed to true so Awake is On by default
   wakeEnabled: true,
   tapToToggle: true
 };
@@ -155,24 +153,44 @@ function parseSongsTxt(txt){
     const lines = p.split(/\r?\n/).map(l => l.trimEnd());
     let i = 0;
     while (i < lines.length && lines[i].trim() === "") i++;
-    const title = lines[i] ? lines[i].trim() : "Untitled";
+    const header = lines[i] ? lines[i].trim() : "Untitled";
+    let title = header;
     let artist = "";
     let contentStart = i + 1;
+    let speed = null;
 
-    // Heuristic: second short line without chord markup is artist
-    const maybeArtist = lines[contentStart] || "";
-    if (
-      maybeArtist &&
-      !/[\[\]|]/.test(maybeArtist) &&
-      maybeArtist.length < 60 &&
-      maybeArtist.split(" ").length < 7
-    ){
-      artist = maybeArtist.trim();
-      contentStart++;
+    // Preferred metadata: "Song Title (Artist Name)"
+    const titleArtistMatch = header.match(/^(.*?)\s*\(([^()]+)\)\s*$/);
+    if (titleArtistMatch) {
+      title = titleArtistMatch[1].trim() || header;
+      artist = titleArtistMatch[2].trim();
     }
 
+    // Backward compatibility: second short line without chord markup is artist
+    if (!artist) {
+      const maybeArtist = lines[contentStart] || "";
+      if (
+        maybeArtist &&
+        !/[\[\]|]/.test(maybeArtist) &&
+        maybeArtist.length < 60 &&
+        maybeArtist.split(" ").length < 7
+      ){
+        artist = maybeArtist.trim();
+        contentStart++;
+      }
+    }
+
+    // Optional metadata lines before content, e.g. "@speed: 15"
+    while (contentStart < lines.length) {
+      const m = (lines[contentStart] || "").trim().match(/^@speed\s*[:=]\s*([0-9]+(?:\.[0-9]+)?)\s*$/i);
+      if (!m) break;
+      speed = clamp(Number(m[1]) || 15, 1, 40);
+      contentStart++;
+    }
+    while (contentStart < lines.length && !(lines[contentStart] || "").trim()) contentStart++;
+
     const content = lines.slice(contentStart).join("\n").trim();
-    return { title, artist, content };
+    return { title, artist, content, speed };
   });
 }
 
@@ -189,6 +207,9 @@ let playing = false;
 // smooth loop
 let rafId = null;
 let lastTs = null;
+let startDelayTimer = null;
+let startCountdownTimer = null;
+const START_SCROLL_DELAY_SEC = 5;
 
 // step mode interval
 // step mode removed; no step timer
@@ -242,10 +263,10 @@ function applySpeedToUI(){
   speedVal.textContent = String(s);
   speedVal2.textContent = String(s);
 }
-function setSpeedValue(v){
+function setSpeedValue(v, options = {}){
   const s = clamp(Number(v) || 15, 1, 40);
   prefs.speed = s;
-  savePrefs();
+  if (options.persist !== false) savePrefs();
   applySpeedToUI();
 }
 
@@ -269,6 +290,48 @@ function stopTimers(){
   rafId = null;
   lastTs = null;
   smoothCarry = 0;
+  if (startDelayTimer) clearTimeout(startDelayTimer);
+  if (startCountdownTimer) clearInterval(startCountdownTimer);
+  startDelayTimer = null;
+  startCountdownTimer = null;
+}
+
+function startSmoothLoop(){
+  if (!playing) return;
+  lastTs = null;
+  smoothCarry = 0;
+  rafId = requestAnimationFrame(tickSmooth);
+}
+
+function startWithDelay(){
+  if (START_SCROLL_DELAY_SEC <= 0) {
+    startSmoothLoop();
+    return;
+  }
+
+  let remaining = START_SCROLL_DELAY_SEC;
+  showToast(`Starting in ${remaining}...`);
+  startCountdownTimer = setInterval(() => {
+    if (!playing) return;
+    remaining -= 1;
+    if (remaining <= 0) {
+      clearInterval(startCountdownTimer);
+      startCountdownTimer = null;
+      return;
+    }
+    showToast(`Starting in ${remaining}...`);
+  }, 1000);
+
+  startDelayTimer = setTimeout(() => {
+    startDelayTimer = null;
+    if (startCountdownTimer) {
+      clearInterval(startCountdownTimer);
+      startCountdownTimer = null;
+    }
+    if (!playing) return;
+    showToast("Scrolling");
+    startSmoothLoop();
+  }, START_SCROLL_DELAY_SEC * 1000);
 }
 
 function start(){
@@ -281,11 +344,7 @@ function start(){
   if (wakeReleaseTimer) { clearTimeout(wakeReleaseTimer); wakeReleaseTimer = null; }
   if (prefs.wakeEnabled) acquireWakeLock();
 
-  // Sync internal scroll state with current scrollTop
-  // Smooth-only playback
-  lastTs = null;
-  smoothCarry = 0;
-  rafId = requestAnimationFrame(tickSmooth);
+  startWithDelay();
 }
 
 function stop(){
@@ -434,9 +493,12 @@ function renderWakeUI(){
 btnWake.addEventListener("click", async () => {
   prefs.wakeEnabled = !prefs.wakeEnabled;
   savePrefs();
-  if (prefs.wakeEnabled && playing) await acquireWakeLock();
   if (wakeReleaseTimer) { clearTimeout(wakeReleaseTimer); wakeReleaseTimer = null; }
-  await releaseWakeLock();
+  if (prefs.wakeEnabled) {
+    if (playing) await acquireWakeLock();
+  } else {
+    await releaseWakeLock();
+  }
   renderWakeUI();
 });
 document.addEventListener("visibilitychange", async () => {
@@ -457,8 +519,12 @@ function setSubtitle(){
 
 function loadSong(i){
   idx = clamp(i, 0, songs.length - 1);
+  const song = songs[idx];
   stop();
-  renderSong(songs[idx]);
+  if (song && Number.isFinite(song.speed)) {
+    setSpeedValue(song.speed, { persist: false });
+  }
+  renderSong(song);
   viewer.scrollTop = 0;
   updateProgressFromScroll();
   setSubtitle();

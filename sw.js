@@ -1,5 +1,5 @@
 // Simple offline cache for Song Scroll (GitHub Pages)
-const CACHE = "song-scroll-v4";
+const CACHE = "song-scroll-v5";
 const ASSETS = [
   "./",
   "./index.html",
