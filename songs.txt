@@ -119,7 +119,7 @@ Riff ([A] [Dm])
 
 We’re Going to Be Friends (The White Stripes)
 
-@speed: 11
+@speed: 12
 Intro
 
 [G]
