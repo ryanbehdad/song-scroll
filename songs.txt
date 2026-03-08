@@ -369,7 +369,7 @@ I hear you're [A] feeling down
 And get you [Bm] on your feet again
 
 [Bm] Relax, relax, relax
-I'll need some infor [A] mation first
+I'll need some infor[A]mation first
 [G] Just the basic [Em] facts
 Can you [Bm] show me where it hurts?
 
@@ -387,13 +387,10 @@ This is not how I [G] am
 [A] I [C] have become [G] comfortably [D] numb
 
 [Guitar Solo 1] 
-[D] [A] 
-[D] [A] 
-[C] [G] 
-[C] [G] 
+[D] [A] [D] [A] 
+[C] [G] [C] [G] 
 
-[A] I [C] have become 
-[G] comfortably [D] numb
+[A] I [C] have become [G] comfortably [D] numb
 
 Verse 2: [Bm] [A] [G] [Em] [Bm] X 3
 [Bm] Okay Okay, okay, okay
