@@ -218,8 +218,7 @@ D D DU DU or 64342343
 
 And I say, [C] "Yes, you look [D] wonderful to[G]night"
 
-[G] [D/F#] 
-[C] [D] 
+[G] [D/F#] [C] [D] 
 
 [G] (We) go to a [D/F#] party
 [C] (And) everyone [D] turns to see
@@ -240,11 +239,9 @@ Then the [C] wonder of it [D] all
 is that you [C] just don't real[D]ize
 How much I [G] love you
 
-[G] [D/F#]
-[C] [D]
+[G] [D/F#] [C] [D]
 
-[G] [D/F#] 
-[C] [D]
+[G] [D/F#] [C] [D]
 
 [G] It's time to go [D/F#] home now
 [C] And I've got an aching [D] head
@@ -264,7 +261,7 @@ you were [D] wonderful to-[G]-night"
 
 Hey There Delilah (Plain White T's) 
 
-@speed: 11
+@speed: 12
 Singing starts in [G] - Capo 2
 
 [C] 
@@ -275,7 +272,7 @@ Singing starts in [G] - Capo 2
 [C] Hey there, Delilah
 What's it [Em] like in New York City?
 I'm a [C] thousand miles away
-But girl, to-[Em]-night, you look so pretty
+But girl, to[Em]night, you look so pretty
 Yes, you [Am] do [Am/G] (only the fourth5)
 [F] Times Square can't [G] shine as bright as [Am] you
 I swear it's [G] true
