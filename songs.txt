@@ -1,6 +1,6 @@
 For What It's Worth (Buffalo Springfield)
 
-@speed: 11
+@speed: 12
 D- DU -U DU
 
 Intro
