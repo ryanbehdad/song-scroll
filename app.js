@@ -49,10 +49,8 @@ let idx = 0;
 
 // --- Preferences ---
 let prefs = {
-  mode: "smooth",         // "smooth" | "step"
+  mode: "smooth",         // always "smooth"; kept for backwards-compat with saved prefs
   speed: DEFAULT_SPEED,   // px/s (1..40)
-  stepSize: "line",       // line | two | half | page
-  stepEvery: 2.0,         // seconds
   fontPx: 20,
   lineHeight: 1.55,
   wakeEnabled: true,
@@ -66,7 +64,6 @@ function loadPrefs(){
   }catch{}
   // enforce requested constraints
   prefs.speed = clamp(Number(prefs.speed) || DEFAULT_SPEED, 1, 40);
-  prefs.stepEvery = clamp(Number(prefs.stepEvery) || 2.0, 0.2, 30);
   prefs.fontPx = clamp(Number(prefs.fontPx) || 20, 14, 34);
   prefs.lineHeight = clamp(Number(prefs.lineHeight) || 1.55, 1.2, 2.0);
 }
@@ -203,6 +200,7 @@ function parseSongsTxt(txt){
 async function loadSongs(){
   // Network-first for songs.txt so updates show quickly (works with service worker too).
   const res = await fetch("songs.txt", { cache: "no-store" });
+  if (!res.ok) throw new Error(`Failed to load songs.txt: HTTP ${res.status}`);
   const txt = await res.text();
   songs = parseSongsTxt(txt);
 }
@@ -388,8 +386,11 @@ function tickSmooth(ts){
     smoothCarry += delta;
     const step = Math.floor(smoothCarry);
     if (step >= 1){
+      // Capture the carry remainder before the assignment, because setting scrollTop
+      // may fire the scroll event synchronously and reset smoothCarry to 0.
+      const nextCarry = smoothCarry - step;
       viewer.scrollTop = before + step;
-      smoothCarry -= step;
+      smoothCarry = nextCarry;
     }
   } else {
     smoothCarry = 0;
@@ -404,10 +405,6 @@ function tickSmooth(ts){
   rafId = requestAnimationFrame(tickSmooth);
 }
 
-function linePx(){
-  const lh = parseFloat(getComputedStyle(viewer).lineHeight) || 24;
-  return lh;
-}
 // step mode removed: no stepAmount/startStep or related listeners
 
 // Tap viewer toggles play/pause (optional)
