@@ -19,9 +19,8 @@ self.addEventListener("activate", (e) => {
   e.waitUntil(
     caches.keys().then(keys =>
       Promise.all(keys.map(k => (k !== CACHE ? caches.delete(k) : null)))
-    )
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 self.addEventListener("message", (e) => {
