@@ -141,7 +141,7 @@ function renderSong(song){
 // --- Parse songs.txt (same idea as your original) ---
 function parseSongsTxt(txt){
   const parts = txt
-    .split(/\r?\n-{10,}\r?\n/)
+    .split(/\r?\n---\r?\n/)
     .map(p => p.replace(/\uFEFF/g, "").trim())
     .filter(Boolean);
 

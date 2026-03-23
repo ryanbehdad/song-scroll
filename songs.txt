@@ -60,7 +60,7 @@ You better stop
 Children, what's that sound?
 Everybody look, what's going down?
 
---------------------------------------------
+---
 
 The Man Who Sold the World (David Bowie)
 
@@ -111,7 +111,7 @@ With the man [C#] who sold the world [A][Dm]
 
 Riff ([A] [Dm])
 
---------------------------------------------
+---
 
 We’re Going to Be Friends (The White Stripes)
 
@@ -193,7 +193,7 @@ Intro
 [G6] friends
 (one strum on the final chord)
 
---------------------------------------------
+---
 
 Wonderful Tonight (Eric Clapton)
 
@@ -249,7 +249,7 @@ you were [D] wonderful to-[G]-night"
 "Oh, my [C] darling, 
 you were [D] wonderful to-[G]-night"
 
---------------------------------------------
+---
 
 Hey There Delilah (Plain White T's) 
 
@@ -355,7 +355,7 @@ What you do to [C] me
 [C] [Am]
 [C] [C] 
 
---------------------------------------------
+---
 
 Comfortably Numb (Pink Floyd)
 
@@ -425,7 +425,7 @@ The child is grown, the [G] dream is gone
 
 [Guitar Solo 2] 
 
---------------------------------------------
+---
 
 House Of The Rising Sun (The Animals)
 
@@ -497,7 +497,7 @@ And [Am] God, I [E] know I'm [Am] one.
 [E] [Am] 
 [E]
 
---------------------------------------------
+---
 
 Hurt (Johnny Cash)
 
@@ -558,7 +558,7 @@ A million [G] miles [G] away
 [Am] I would keep my[F]self
 [G] I would find a way
 
---------------------------------------------
+---
 
 Shahzadehye Roya (Ahdieh)
 
@@ -599,7 +599,7 @@ be khoda
 [B7] dar entezaaram be [Em] khoda 
 
 
---------------------------------------------
+---
 
 Sharghi-ye Ghamgin (Fereydoun Farrokhzad)
 
@@ -657,7 +657,7 @@ tars az zemestoon nis, ke aaftaabesh ro boom-e
 Ey sharghi-ye ghamgin to mesl-e kooh noori nazar khorshidemun bemire
 to mesl-e rooz paaki, mesl-e daryaa maghroori nazar khaamooshi joon begire
 
---------------------------------------------
+---
 
 Hezaar o Yek Shab (Erfan Tahmasbi)
 
@@ -688,7 +688,7 @@ Hezaar o Yek Shab (Erfan Tahmasbi)
 [F#] az kooche-ye [Em] ma'shoogh [F#] age ey baad [Bm] gozashti
 [Em] az haal-e delam [G] yaaro [F#] khabar kon
 
---------------------------------------------
+---
 
 Black (Pearl Jam)
 
@@ -747,7 +747,7 @@ Why
 [D] Why can't it [C]be
 Why can't it be mine
 
---------------------------------------------
+---
 
 Good Riddance (Green Day)
 
@@ -784,7 +784,7 @@ But [Em] in the end, it's [G] right
 I [Em] hope you had the [D] time of your [G] life
 X 3
 
---------------------------------------------
+---
 
 Wonderwall (Oasis)
 
@@ -861,7 +861,7 @@ And [Em]after [C] all [Em]
 [G] You're my [Em] wonder
 [C] wall [Em] [G] [Em] ) X 3
 
---------------------------------------------
+---
 
 Last Kiss (Pearl Jam)
 
@@ -905,7 +905,7 @@ So [C] I can see my baby when I [D] leave this [G] world.
 
 Ooh oooh ohhh (to the tune of the chorus)
 
---------------------------------------------
+---
 
 Bad Moon Rising  (Creedence Clearwater Revival and Creedence Clearwater Revived)
 
@@ -940,7 +940,7 @@ Well it's [D] bound to take your life
 Well it's [D] bound to take your life
 [A]There's a [G] bad moon on the [D] rise
 
---------------------------------------------
+---
 
 Everyday Is Like Sunday (Morrissey)
 
@@ -976,7 +976,7 @@ Everyday is like Sunday
 Share some greased tea with me
 Everyday is silent and grey
 
---------------------------------------------
+---
 
 Heartbreak Hotel (Elvis Presley)
 
@@ -1035,4 +1035,4 @@ Just take a walk down lonely street
                   [E7]
 to Heartbreak Hotel.
 
---------------------------------------------
+---

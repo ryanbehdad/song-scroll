@@ -26,15 +26,15 @@ Your GitHub Pages address:
 
 ## songs.txt format
 
-Songs are separated by a line of 10+ dashes, e.g.
+Songs are separated by `---`, e.g.
 
-----------
+---
 Title (Artist optional in brackets)
 Artist (optional second line, still supported)
 @speed: 11
 Lyrics and chords...
 
-----------
+---
 Next Title
 ...
 
