@@ -1,3 +1,58 @@
+Gole Gooldoone Man (Simin Ghanem)
+
+@speed: 11
+Picking: 5-3-2-1-2-3
+
+[Verse 1]
+[Am]
+[Am] Gole gool[E]doone man  she[Dm]kaste dar [Am] baad
+[Am] To bia [E] ta delam [Dm] nakarde faryad [Am]
+[Am] Gole shab[E]boo dige [Dm] shab boo nemide [Am]
+[Am] Ki gole [E]  shabboo ro [Dm] az shakhe chide [Am]
+
+[Verse 2]
+[C] or [Am] Goosheye aa[Dm]semoon pore ran[C]gin kamoon
+[Am] Man mesle ta[Dm]riki [E] to mesle mah[Am]tab
+[Am] Age baad [Dm] az sare [C] zolfe to nagzare
+[Am] Man miram [Dm] gom misham [E] too jangale [Am] khab
+
+[Chorus]
+[C] Gole gooldoone man
+[G] Mahe eyvoone [Dm] man
+[Am] Az to [E7] tanha shodam [E] cho [F] mahi az aab
+[C] Gole har arezoo
+[G] Rafte az [Dm] range o boo
+[Am] Man shodam [E7] roodkhoone [E] delam [F] ye mordab
+
+[Bridge]
+[G] Aasemoon aabi mishe
+[Am] Ama gole khorshid
+[E] Roo shakhehaye bid
+[Dm] Delash [F] migire
+[G] Dare mahtabi mishe
+Ama gole mahtab
+[E] Az berkehaye aab
+[Dm] Bala [F] nemire
+
+[Chords TBD]
+[Verse 3]
+To ke dast tekoon midi
+Be setare joon midi
+Mishkofe gol az gole bagh
+Vaghti cheshmat ham miad
+Do setare kam miad
+Misooze shaghayegh az dagh
+
+[Chorus]
+Gole gooldoone man
+Mahe eyvoone man
+Az to tanha shodam cho mahi az aab
+Gole har arezoo
+Rafte az range o boo
+Man shodam roodkhoone delam ye mordab
+
+---
+
 Hameye Oun Rooza (Reza Sadeghi)
 
 @speed: 11
@@ -48,6 +103,7 @@ E
 Esus4
 
 [Verse 1]
+[Am]
 Hameye [Am] oon roozaii ke bi to gozasht [Dm] kenare to boodam [G] o ghosseye raftane to ye roozi gereft [C] tamame vojoodamo [F]
 Nemidoonam kojaii che talkhe [Dm] ke man be [Esus4] khatere boodam [E] o bas
 
