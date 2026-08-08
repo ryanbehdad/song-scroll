@@ -17,26 +17,26 @@ Picking: 5-3-2-1-2-3
 [Am] Man miram [Dm] gom misham [E] too jangale [Am] khab
 
 [Chorus]
-[C] Gole gooldoone man
-[G] Mahe eyvoone [Dm] man
-[Am] Az to [E7] tanha shodam [E] cho [F] mahi az aab
-[C] Gole har arezoo
-[G] Rafte az [Dm] range o boo
-[Am] Man shodam [E7] roodkhoone [E] delam [F] ye mordab
+[Am] Gole gooldoone man
+[Dm] Mahe eyvoone [C] man
+[Am] Az to tanha [Dm] shodam cho [E] mahi az [Am] aab
+[Am] Gole har arezoo
+[Dm] Rafte az range o [C] boo
+[Am] Man shodam [Dm] roodkhoone [E] delam ye [Am] mordab
 
 [Bridge]
-[G] Aasemoon aabi mishe
-[Am] Ama gole khorshid
-[E] Roo shakhehaye bid
-[Dm] Delash [F] migire
-[G] Dare mahtabi mishe
-Ama gole mahtab
-[E] Az berkehaye aab
-[Dm] Bala [F] nemire
+[Am] Aasemoon aabi mishe
+Ama gole [G] khorshid
+[G] Roo [F] shakhehaye bid
+[Dm] Delash migire [Am]
+[Am] Dare mahtabi mishe
+Ama gole [G] mahtab
+[G] Az [F] berkehaye aab
+[Dm] Bala nemire [Am]
 
 [Chords TBD]
 [Verse 3]
-To ke dast tekoon midi
+To ke dast [Dm] tekoon midi
 Be setare joon midi
 Mishkofe gol az gole bagh
 Vaghti cheshmat ham miad
