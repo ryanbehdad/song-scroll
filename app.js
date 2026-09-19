@@ -114,7 +114,7 @@ function escapeHtml(s){
 }
 
 function renderSong(song){
-  const titleLine = `<div class="song-titleline">${escapeHtml(song.title)}${song.artist ? " — " + escapeHtml(song.artist) : ""}</div>`;
+  const titleLine = `<div class="song-titleline" dir="auto">${escapeHtml(song.title)}${song.artist ? " — " + escapeHtml(song.artist) : ""}</div>`;
   const lines = (song.content || "").split(/\n/);
 
   // Keep the user's layout exactly. Highlight [CHORD] and {annotation} tokens.
@@ -138,11 +138,17 @@ function renderSong(song){
       return `<span class="${t.cls}">${escapeHtml(t.text)}</span>`;
     });
 
-    // Preserve spacing: use <pre> but wrap each line to allow chord highlighting
-    return escaped;
-  }).join("\n");
+    // Each line is its own block with dir="auto" so the browser's bidi algorithm
+    // resolves direction per line. Lets Persian/Arabic (RTL) lyric lines render
+    // right-to-left and right-aligned, even when interleaved with English
+    // metadata/chords in the same song — without affecting LTR songs at all.
+    // (An empty line needs &nbsp; or some browsers collapse it to zero height.)
+    return `<div class="songline" dir="auto">${escaped || "&nbsp;"}</div>`;
+  }).join("");
 
-  viewer.innerHTML = titleLine + `<pre class="songtext mono">${out}</pre>`;
+  // Preserve exact spacing (multiple spaces/tab-style chord charts) via CSS
+  // white-space: pre-wrap on .songtext, same as the old single <pre> block did.
+  viewer.innerHTML = titleLine + `<div class="songtext mono">${out}</div>`;
 }
 
 // --- Parse songs.txt (same idea as your original) ---
@@ -416,6 +422,10 @@ function tickSmooth(ts){
 
 // Tap viewer toggles play/pause (optional)
 viewer.addEventListener("click", () => {
+  // A swipe that just changed songs (see touchend handler below) can fire a
+  // trailing synthetic click; skip it so switching songs doesn't also
+  // toggle playback.
+  if (suppressNextViewerClick) { suppressNextViewerClick = false; return; }
   if (!prefs.tapToToggle) return;
   // avoid accidental toggles while dragging progress
   toggle();
@@ -556,7 +566,7 @@ function renderSongList(filter=""){
     item.type = "button";
     item.className = "songitem";
     item.role = "listitem";
-    item.innerHTML = `<div class="t">${escapeHtml(s.title)}</div>${s.artist ? `<div class="a">${escapeHtml(s.artist)}</div>` : ""}`;
+    item.innerHTML = `<div class="t" dir="auto">${escapeHtml(s.title)}</div>${s.artist ? `<div class="a" dir="auto">${escapeHtml(s.artist)}</div>` : ""}`;
     item.addEventListener("click", () => {
       loadSong(i);
       openSheet(sheetSongs, false);
@@ -590,7 +600,14 @@ document.addEventListener("keydown", (e) => {
 // --- Swipe gestures (left/right to change songs) ---
 let touchStartX = null;
 let touchStartY = null;
+let suppressNextViewerClick = false;
 viewer.addEventListener("touchstart", (e) => {
+  // Reset on every new touch: a swipe's trailing click isn't guaranteed to
+  // fire (renderSong() may replace viewer.innerHTML before it does, or the
+  // browser may suppress it entirely), so if we only cleared the flag inside
+  // the click handler it could stay stuck true and silently eat the next
+  // legitimate tap-to-toggle.
+  suppressNextViewerClick = false;
   const t = e.touches[0];
   touchStartX = t.clientX;
   touchStartY = t.clientY;
@@ -609,6 +626,7 @@ viewer.addEventListener("touchend", (e) => {
     if (dx < 0) nextSong();
     else prevSong();
     showToast(dx < 0 ? "Next" : "Previous");
+    suppressNextViewerClick = true;
   }
 }, { passive: true });
 
