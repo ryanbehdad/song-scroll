@@ -8,6 +8,7 @@ Tip: chord change C to A7 — finger 2 stays as the pivot, finger 3 slides down 
 [G]Edel[D7]weiss,
 [G]Edel[C]weiss,
 [G]Every {walk→C: 6(3) 5(0) 5(2)}morning you [C]greet [D7]me.
+[G]Every {walk→C: 6(3)}morn {5(0)}ing {5(2)} you [C]greet [D7]me.
 
 [G]Small and [D7] white,
 [G]Clean and [C]bright,
