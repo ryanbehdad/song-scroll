@@ -5,8 +5,8 @@ Starting pitch: open string 2 (B)
 Picking: bass note (thumb) on beat 1, two plucks (fingers) on beats 2-3 — T ✓ ✓, repeated every bar (3/4 waltz feel), counted 1-2-3
 Tip: chord change C to A7 — finger 2 stays as the pivot, finger 3 slides down to string 2
 
-[G]E- del[D7]weiss,
-[G]E- del[C]weiss,
+[G]Edel[D7]weiss,
+[G]Edel[C]weiss,
 [G]Every {walk→C: 6(3) 5(0) 5(2)}morning you [C]greet [D7]me.
 
 [G]Small and [D7] white,
