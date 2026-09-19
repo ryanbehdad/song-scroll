@@ -103,6 +103,7 @@ document.querySelectorAll("[data-close]").forEach(btn => {
 
 // --- Chord rendering ---
 const CHORD_IN_BRACKETS = /\[([^\]]+)\]/g;
+const WALKUP_IN_BRACES = /\{([^}]+)\}/g;
 
 function escapeHtml(s){
   return s
@@ -116,19 +117,25 @@ function renderSong(song){
   const titleLine = `<div class="song-titleline">${escapeHtml(song.title)}${song.artist ? " — " + escapeHtml(song.artist) : ""}</div>`;
   const lines = (song.content || "").split(/\n/);
 
-  // Keep the user's layout exactly. Highlight [CHORD] tokens.
+  // Keep the user's layout exactly. Highlight [CHORD] and {annotation} tokens.
   const out = lines.map(line => {
-    const chords = [];
-    const placeholder = line.replace(CHORD_IN_BRACKETS, (_m, g) => {
-      const id = chords.length;
-      chords.push(g);
-      return `@@CHORD${id}@@`;
+    const tokens = [];
+    let placeholder = line.replace(CHORD_IN_BRACKETS, (_m, g) => {
+      const id = tokens.length;
+      tokens.push({ cls: "chord", text: g });
+      return `@@TOK${id}@@`;
+    });
+    placeholder = placeholder.replace(WALKUP_IN_BRACES, (_m, g) => {
+      const id = tokens.length;
+      tokens.push({ cls: "walkup", text: g });
+      return `@@TOK${id}@@`;
     });
 
     let escaped = escapeHtml(placeholder);
-    escaped = escaped.replace(/@@CHORD(\d+)@@/g, (_m, n) => {
-      const c = chords[Number(n)] || "";
-      return `<span class="chord">${escapeHtml(c)}</span>`;
+    escaped = escaped.replace(/@@TOK(\d+)@@/g, (_m, n) => {
+      const t = tokens[Number(n)];
+      if (!t) return "";
+      return `<span class="${t.cls}">${escapeHtml(t.text)}</span>`;
     });
 
     // Preserve spacing: use <pre> but wrap each line to allow chord highlighting

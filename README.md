@@ -43,6 +43,11 @@ Next Title
 - `@speed: N` sets that song's default scroll speed (`N` is clamped to `1..40`).
 - Recommended header format: `Song Title (Artist Name)`.
 
+### Chord and annotation markup
+
+- `[Chord]` highlights a chord name as a pill, e.g. `[G] Edelweiss,`.
+- `{annotation}` highlights a smaller, muted note (e.g. a walking-bass run), e.g. `{walk→C: 6(3) 5(0) 5(2)}`.
+
 ## Auto-scroll speed
 
 - Smooth mode uses **1–40 px/s**, default **11**.

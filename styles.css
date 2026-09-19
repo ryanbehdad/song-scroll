@@ -114,6 +114,20 @@ body{
   box-shadow: 0 8px 24px rgba(110,231,255,.10);
 }
 
+.walkup{
+  display:inline-block;
+  padding: 0 6px;
+  margin: 0 2px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.78em;
+  font-style: italic;
+  color: rgba(110,231,255,.9);
+  border: 1px solid rgba(110,231,255,.35);
+  background: rgba(110,231,255,.07);
+  vertical-align: 1px;
+}
+
 /* Player bar */
 .player{
   position:fixed; left:0; right:0; bottom:0; z-index:60;
