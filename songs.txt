@@ -1,6 +1,6 @@
 Edelweiss
 
-@speed: 11
+@speed: 10
 Starting pitch: open string 2 (B)
 Picking: bass note (thumb) on beat 1, two plucks (fingers) on beats 2-3 — T ✓ ✓, repeated every bar (3/4 waltz feel), counted 1-2-3
 Tip: chord change C to A7 — finger 2 stays as the pivot, finger 3 slides down to string 2
@@ -9,17 +9,17 @@ Tip: chord change C to A7 — finger 2 stays as the pivot, finger 3 slides down 
 [G]E- del[C]weiss,
 [G]Every {walk→C: 6(3) 5(0) 5(2)}morning you [C]greet [D7]me.
 
-[G]Small [D7]and white,
-[G]Clean [C]and bright,
+[G]Small and [D7] white,
+[G]Clean and [C]bright,
 [G]You look [D7]happy to [G]meet {walk→D: 6(3) 5(0) 5(4)}me.
 
-[D7]Blossom of {walk→G: 4(0) 6(0) 6(2)}snow,
-[G]May you {walk→C: 6(3) 5(0) 5(2)}bloom and grow,
-[C]Bloom and [A7]grow [D7]for- {walk→G: 4(0) 6(0) 6(2)}ever—
+[D7]Blossom of {walk→G: 4(0) 6(0) 6(2)}snow, May you 
+[G]bloom and {walk→C: 6(3) 5(0) 5(2)} grow,
+[C]Bloom and [A7]grow for-[D7]-ever{walk→G: 4(0) 6(0) 6(2)}.
 
-[G]E- [D7]delweiss,
-[G]E- [C]delweiss,
-[G]Bless my [D7]homeland [G]forever.
+[G]Edel[D7]weiss,
+[G]Edel[C]weiss,
+[G]Bless my [D7]homeland for[G]ever.
 
 ---
 
